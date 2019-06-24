@@ -3,3 +3,23 @@ extends ./layouts/common.pug
 block content
   h1.hello1.hello2 Hello World #{name}
   a(href="/user") go to user
+
+  .container
+    .card
+      .card-header headder
+      .card-body
+        h5.card-title Special title treatment
+        p.card-text With supporting text below as a natural lead-in to additional content.
+      .card-footer.text-muted 2 day ago
+
+  .media
+  img.mr-3(src='...', alt='...')
+  .media-body
+    h5.mt-0 Media heading
+    p Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+    .media.mt-3
+      a.mr-3(href='#')
+        img.mr-3(src='...', alt='...')
+      .media-body
+        h5.mt-0 Media heading
+        p Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
