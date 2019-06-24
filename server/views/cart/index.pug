@@ -1,0 +1,84 @@
+extends ../layouts/common.pug
+
+block head
+  title Shopping
+  link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Open+Sans')
+  link(rel='stylesheet', href='/css/carttrending.css')
+
+block content
+  .container.toptrending
+    .row
+      .col-md-12
+        h2 Trending 
+          b Products
+        #myCarousel.carousel.slide(data-ride='carousel', data-interval='0')
+          // Carousel indicators
+          ol.carousel-indicators
+            li.active(data-target='#myCarousel', data-slide-to='0')
+            li(data-target='#myCarousel', data-slide-to='1')
+            li(data-target='#myCarousel', data-slide-to='2')
+          // Wrapper for carousel items
+          .carousel-inner
+            .item.carousel-item.active(data-interval="3000")
+              .row
+                
+            .item.carousel-item(data-interval="3000")
+              .row
+                
+            .item.carousel-item(data-interval="3000") 
+              .row
+                
+          // Carousel controls
+          a.carousel-control.left.carousel-control-prev(href='#myCarousel', data-slide='prev')
+            i.fa.fa-angle-left
+          a.carousel-control.right.carousel-control-next(href='#myCarousel', data-slide='next')
+            i.fa.fa-angle-right
+
+  .container
+    .row.pb-4
+      each drug in drugs
+        .col-sm-4.mt-4
+          .thumb-wrapper
+            a(href='/cart/view/' + drug._id)
+              img.img-responsive.img-fluid(src=drug.image , alt='', style='width: 280px; height: 280px')
+            .thumb-content
+              h5.card-title.text-truncate= drug.name
+              p.card-text.text-truncate= drug.description
+              p.item-price
+                strike.mr-2= drug.price.sale ? '$' + drug.price.original : ''
+                span.font-weight-bold= drug.price.sale ? '$' + Math.floor(drug.price.original * ( 100 - drug.price.sale )) / 100 : '$' + drug.price.original
+              .star-rating
+                ul.list-inline
+                  li.list-inline-item
+                    i.fas.fa-star
+                  li.list-inline-item
+                    i.fas.fa-star
+                  li.list-inline-item
+                    i.fas.fa-star
+                  li.list-inline-item
+                    i.fas.fa-star
+                  li.list-inline-item
+                    i.far.fa-star
+              button.btn-add.btn.btn-primary(id=drug._id, onclick='addToCart.bind(this)()') Add to Cart
+
+    //pagination
+    nav(aria-label='...')
+      ul.pagination
+        li.page-item(class= pagination.page === 1 ? 'disabled' : '')
+          a.page-link(href='/cart?page=' + (pagination.page - 1), tabindex='-1', aria-disabled='true') Previous
+        - for(var i = pagination.firstpage; i < pagination.countmax + pagination.firstpage; i++)
+            if(i === pagination.page)
+              li.page-item.active
+                a.page-link(href='/cart?page=' + i)= i
+            else
+              li.page-item
+                a.page-link(href='/cart?page=' + i)= i
+        li.page-item(class=pagination.page === pagination.maxpage ? 'disabled' : '')
+          a.page-link(href='/cart?page=' + (pagination.page + 1)) Next
+        form.form-inline.my-2.my-lg-0.pl-3(action='/cart', method='GET')
+          input.form-control.mr-sm-2(name='page',type='search', placeholder='Go to page')
+          button.btn.btn-outline-success.my-2.my-sm-0(type='submit') Go
+
+  script(src='https://unpkg.com/axios/dist/axios.min.js')
+  script(src='/js/cart.js')
+    

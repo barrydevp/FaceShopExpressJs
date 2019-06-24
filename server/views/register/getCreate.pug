@@ -1,0 +1,30 @@
+extends ../layouts/common.pug
+
+
+block content
+  .jumbotron
+    h1.display-4 Create new user
+    a.btn.btn-primary.btn-lg(href='/user', role='button') Back to user
+
+  div.container
+    form(action='/register', method='POST')
+      .form-group
+        label(for='username') User name
+        input#username.form-control(name='username', type='text', aria-describedby='userHelp', placeholder='Enter username', required)
+        small#userHelp.form-text.text-muted Need to login.
+      .form-group
+        label(for='email') Email address
+        input#email.form-control(name='email', type='email', aria-describedby='emailHelp', placeholder='Enter email')
+        small#emailHelp.form-text.text-muted We&apos;ll never share your email with anyone else.
+      .form-group
+        label(for='password') Password
+        input#password.form-control(name='password', type='password', placeholder='Password', required)
+      .form-group
+        label(for='username') Full name
+        input#username.form-control(name='fullname', type='text', aria-describedby='userHelp', placeholder='Enter fullname')    
+      .form-group
+        label(for='avatar') Avatar
+        .custom-file
+          input#avatar.form-control(type='text', name='avatar')
+          //- label.custom-file-label(for='avatar') Choose file
+      input.btn.btn-primary(type='submit', value='Submit') 

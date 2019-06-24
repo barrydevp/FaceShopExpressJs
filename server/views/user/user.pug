@@ -1,0 +1,23 @@
+extends ../layouts/common.pug
+
+block content
+	.jumbotron
+		h1.display-4= userLogin ? "Welcome Back " + userLogin.username : "Hello Anonymous!"
+		if !userLogin
+			a.btn.btn-primary.btn-lg(href='/register', role='button') Create New User
+			a.btn.btn-primary.btn-lg(href='/login', role='button') Login
+		else
+			a.btn.btn-primary.btn-lg(href='/user/logout', role='button') Logout
+
+	.container
+		.shadow-sm.p-3.mb-5.bg-white.rounded(style='width: 40rem')
+			form(action="/user/search", method="GET")
+				.input-group.mb-3
+					input.form-control(name='username', type='text', placeholder="Username", aria-label="Username", aria-describedby='button-addon2')
+					.input-group-append
+						button#button-addon2.btn.btn-outline-secondary(type='submit') Button
+			.list-group
+				each user in users
+					a.list-group-item.list-group-item-action(href='/user/' + user.id)
+							span= user.username
+

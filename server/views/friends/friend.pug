@@ -1,0 +1,53 @@
+extends ../layouts/common.pug
+
+block head
+  title Friends
+  link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Roboto|Varela+Round')
+  link(rel='stylesheet', href='https://fonts.googleapis.com/icon?family=Material+Icons')
+  link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css')
+  link(rel='stylesheet', href='/css/friend.css')
+
+block content
+  .container
+    nav(aria-label='...')
+      ul.pagination
+        li.page-item(class= pagination.page === 1 ? 'disabled' : '')
+          a.page-link(href='/friends?page=' + (pagination.page - 1), tabindex='-1', aria-disabled='true') Previous
+        - for(var i = pagination.firstpage; i < pagination.countmax + pagination.firstpage; i++)
+            if(i === pagination.page)
+              li.page-item.active
+                a.page-link(href='/friends?page=' + i)= i
+            else
+              li.page-item
+                a.page-link(href='/friends?page=' + i)= i
+        li.page-item(class=pagination.page === pagination.maxpage ? 'disabled' : '')
+          a.page-link(href='/friends?page=' + (pagination.page + 1)) Next
+        form.form-inline.my-2.my-lg-0(action='/friends', method='GET')
+          input.form-control.mr-sm-2(name='page',type='search', placeholder='Go to page')
+          button.btn.btn-outline-success.my-2.my-sm-0(type='submit') Go
+    .table-wrapper
+      .table-title
+        .row
+          .col-sm-6
+            h2 List
+              b Friends
+          .col-sm-6
+            .search-box
+              .input-group
+                input#search.form-control(type='text', placeholder='Search by Name')
+                span.input-group-addon
+                  i.material-icons &#xE8B6;
+      table.table.table-striped
+        thead
+          tr.head
+            th #
+            th(style='width: 22%;') Username
+            th(style='width: 22%;') Email
+            th Pin Code
+            th Country
+            th Actions
+        tbody.body
+
+
+  script(src='https://unpkg.com/axios/dist/axios.min.js')
+  script(src='/js/friend.js')

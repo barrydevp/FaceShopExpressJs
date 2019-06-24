@@ -1,0 +1,45 @@
+extends ../layouts/common.pug
+
+
+block content
+  if(product)
+    .container.d-flex
+      .img-box
+        img.img-responsive.img-fluid(src=product.image , alt='', style='width: 600px; height: 600px')
+      .card(style='width: 25rem;')
+        .card-header
+          h2.font-weight-bold.cart-title.mt-2=product.name
+          h6.card-subtitle.mt-4.mb-2.text-muted=product.description
+          h6.card-subtitle.mt-4.mb-2='(' + product.view + ' views)'
+        .card-body
+          h6.text-muted.mt-3
+            strike= product.price.sale ? '$' + product.price.original : ''
+          h2.font-weight-bold= product.price.sale ? '$' + Math.floor(product.price.original * ( 100 - product.price.sale )) / 100 : '$' + product.price.original
+          h6.text-danger= 'save $' + Math.floor(product.price.original * product.price.sale) / 100
+          h5.font-weight-bold.mt-4 Flavour
+            select.custom-select
+              option(selected='0') Unflavoured
+              option(value='1') Banana
+              option(value='2') Chocolate
+              option(value='3') Coconut
+          h5.font-weight-bold.mt-4 Quantity:
+            input.quantity.form-control(name='quantity', type='text', aria-label='Sizing example input', aria-describedby='inputGroup-sizing-default', value = '1')
+        .card-footer
+          button.btn-add.btn.btn-primary(id=product._id, onclick='addToCart.bind(this)()',type='button')= 'Add to cart'
+
+
+  script(src='https://unpkg.com/axios/dist/axios.min.js') 
+  script.
+
+    async function addToCart() {
+      const count = parseInt(document.querySelector('input.quantity').value);
+      try {
+        axios.put('/api/sessions/addtocart/' + this.id + '/' + count);
+
+      } catch(err) {
+        console.error(err);
+      }
+
+      quantity += count;
+      spanCartCount.textContent = quantity;
+    }

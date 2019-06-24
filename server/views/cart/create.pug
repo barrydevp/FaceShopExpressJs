@@ -1,0 +1,42 @@
+extends ../layouts/common.pug
+
+
+block content
+  .container
+    form(action='/cart/create', method='POST').d-flex
+      .img-box
+        img.img-responsive.img-fluid(src='https://s1.thcdn.com/productimg/1600/1600/10530943-4414674035314392.jpg' , alt='', style='width: 600px; height: 600px')
+        .input-group.mb-3
+          .input-group-prepend
+            span#inputGroup-sizing-default.input-group-text URL Image
+          input.imageUrl.form-control(name='image', type='text', aria-label='Sizing example input', aria-describedby='inputGroup-sizing-default')
+      .card(style='width: 25rem;')
+        .card-header
+          .input-group.mb-3
+            .input-group-prepend
+              span#inputGroup-sizing-default.input-group-text Name
+            input.form-control(name='name', type='text', aria-label='Sizing example input', aria-describedby='inputGroup-sizing-default')
+          .input-group.mb-3
+            .input-group-prepend
+              span#inputGroup-sizing-default.input-group-text Description
+            input.form-control(name='description', type='text', aria-label='Sizing example input', aria-describedby='inputGroup-sizing-default')
+        .card-body
+          .input-group.mb-3
+            .input-group-prepend
+              span#inputGroup-sizing-default.input-group-text Price
+            input.form-control(name='price', type='text', aria-label='Sizing example input', aria-describedby='inputGroup-sizing-default')
+          .input-group.mb-3
+            .input-group-prepend
+              span#inputGroup-sizing-default.input-group-text Sale
+            input.form-control(name='sale', type='text', aria-label='Sizing example input', aria-describedby='inputGroup-sizing-default')
+        .card-footer
+          button.btn.btn-primary(type='submit') Create
+
+  script.
+    const imgbox = document.querySelector('.img-box img');
+    const inputImg = document.querySelector('.imageURl');
+    inputImg.addEventListener('keyup', () => {
+      const urlImage = inputImg.value;
+      imgbox.src = urlImage;
+    });
+    

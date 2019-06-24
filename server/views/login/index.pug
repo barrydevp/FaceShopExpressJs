@@ -1,0 +1,18 @@
+extends ../layouts/common.pug
+
+block content
+  .jumbotron
+    h1.display-4 Login
+    a.btn.btn-primary.btn-lg(href='/user', role='button') Back to user
+    a.btn.btn-primary.btn-lg(href='/register', role='button') Create New User
+  div.container
+    if errors
+      .alert.alert-danger=errors
+    form(action='/login', method='POST')
+      .form-group
+        label(for='username') User name
+        input#username.form-control(name='username', type='text', aria-describedby='userHelp', placeholder='Enter username',value=value ? value : "", required)
+      .form-group
+        label(for='password') Password
+        input#password.form-control(name='password', type='password', placeholder='Password', required)
+      input.btn.btn-primary(type='submit', value='Login')

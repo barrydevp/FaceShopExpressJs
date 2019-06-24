@@ -1,0 +1,104 @@
+extends ../layouts/common.pug
+
+block content
+  button.btn.btn-primary(type='button', data-toggle='modal', data-target='#friendModal' ) Detail
+  .modal.fade(id='friendModal' , tabindex='-1', role='dialog', aria-labelledby='friendModalLabel', aria-hidden='true')
+    .modal-dialog(role='document')
+      .modal-content
+        .modal-header
+          h5#friendModalLabel.modal-title Detail User
+          button.close(type='button', data-dismiss='modal', aria-label='Close')
+            span(aria-hidden='true') &times;
+        .modal-body
+          .card.float-right(style='width: 18rem;')
+            ul.list-group.list-group-flush
+              li.list-group-item= 'Username: '
+              li.list-group-item= 'Email: '
+            .card-body
+              a.card-link(href='#') Card link
+              a.card-link(href='#') Another link
+          img.img-thumbnail(src="#")
+        .modal-footer
+          button.btn.btn-secondary(type='button', data-dismiss='modal') Close
+          button.btn.btn-primary(type='button') Send message
+
+  .jumbotron
+    h1.display-4= userLogin ? "Welcome Back " + userLogin.username : "Hello Anonymous!"
+    if !userLogin
+      a.btn.btn-primary.btn-lg(href='/register', role='button') Create New User
+      a.btn.btn-primary.btn-lg(href='/login', role='button') Login
+    else
+      a.btn.btn-primary.btn-lg(href='/user/logout', role='button') Logout
+
+  .container
+    table.table
+      thead.thead-dark
+        tr
+          th(scope='col') #
+          th(scope='col') Username
+          th(scope='col') Email
+          th(scope='col')
+      tbody
+        each friend in friends
+          tr
+            th(scope='row')= friend.id
+            td= friend.username
+            td= friend.email
+            td
+              button.btn.btn-primary(type='button', data-toggle='modal', data-target='#friendModal' + friend.id) Detail
+              .modal.fade(id='friendModal' + friend.id, tabindex='-1', role='dialog', aria-labelledby='friendModalLabel', aria-hidden='true')
+                .modal-dialog(role='document')
+                  .modal-content
+                    .modal-header
+                      h5#friendModalLabel.modal-title Detail User
+                      button.close(type='button', data-dismiss='modal', aria-label='Close')
+                        span(aria-hidden='true') &times;
+                    .modal-body
+                      .card.float-right(style='width: 18rem;')
+                        ul.list-group.list-group-flush
+                          li.list-group-item= 'Username: ' + friend.username
+                          li.list-group-item= 'Email: ' + friend.email
+                        .card-body
+                          a.card-link(href='#') Card link
+                          a.card-link(href='#') Another link
+                      img.img-thumbnail(src=friend.avatar)
+                    .modal-footer
+                      button.btn.btn-secondary(type='button', data-dismiss='modal') Close
+                      button.btn.btn-primary(type='button') Send message
+        button.btn.btn-primary(type='button', data-toggle='modal', data-target='#friendModal' ) Detail
+        .modal.fade(id='friendModal' , tabindex='-1', role='dialog', aria-labelledby='friendModalLabel', aria-hidden='true')
+          .modal-dialog(role='document')
+            .modal-content
+              .modal-header
+                h5#friendModalLabel.modal-title Detail User
+                button.close(type='button', data-dismiss='modal', aria-label='Close')
+                  span(aria-hidden='true') &times;
+              .modal-body
+                .card.float-right(style='width: 18rem;')
+                  ul.list-group.list-group-flush
+                    li.list-group-item= 'Username: '
+                    li.list-group-item= 'Email: '
+                  .card-body
+                    a.card-link(href='#') Card link
+                    a.card-link(href='#') Another link
+                img.img-thumbnail(src="#")
+              .modal-footer
+                button.btn.btn-secondary(type='button', data-dismiss='modal') Close
+                button.btn.btn-primary(type='button') Send message            
+    //pagination
+    nav(aria-label='...')
+      ul.pagination
+        li.page-item(class= pagination.page === 1 ? 'disabled' : '')
+          a.page-link(href='/friends?page=' + (pagination.page - 1), tabindex='-1', aria-disabled='true') Previous
+        - for(var i = pagination.firstpage; i < pagination.countmax + pagination.firstpage; i++)
+            if(i === pagination.page)
+              li.page-item.active
+                a.page-link(href='/friends?page=' + i)= i
+            else
+              li.page-item
+                a.page-link(href='/friends?page=' + i)= i
+        li.page-item(class=pagination.page === pagination.maxpage ? 'disabled' : '')
+          a.page-link(href='/friends?page=' + (pagination.page + 1)) Next
+        form.form-inline.my-2.my-lg-0(action='/friends', method='GET')
+          input.form-control.mr-sm-2(name='page',type='search', placeholder='Go to page')
+          button.btn.btn-outline-success.my-2.my-sm-0(type='submit') Go

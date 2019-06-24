@@ -1,0 +1,23 @@
+extends ../layouts/common.pug
+
+
+block content
+  .container
+    h3.cart-count= quantity + ' Item in Cart'
+    ul.list-cart.list-group.mb-3
+      // each cart in carts
+      //   li.list-group-item.d-flex.justify-content-between.align-items-center.pt-2.pb-0
+      //     blockquote.blockquote.p-0
+      //       p.h6.mb-0= cart.infor.name
+      //       //- p.h6.mb-0= cart.flavour
+      //       footer.h6.blockquote-footer= '$ ' + Math.floor(cart.infor.price.original * ( 100 - cart.infor.price.sale )) / 100
+      //       span.badge.badge-primary.badge-pill(style='font-size: 100%')= cart.count
+      //     button.del-button.btn.btn-primary.btn-sm(id=cart._id ,type='button') Delete
+    div.d-flex.justify-content-center.align-items-center
+      a.btn.btn-primary.w-50(href='#') Click Buy
+
+
+  script(src='https://unpkg.com/axios/dist/axios.min.js')
+  script(src='/js/listcart.js')
+
+    

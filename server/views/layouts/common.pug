@@ -1,0 +1,155 @@
+html
+  head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    link(rel='stylesheet', href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css', integrity='sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T', crossorigin='anonymous')
+    link(rel='stylesheet', href='/css/common.css')
+    //- script(src='https://kit.fontawesome.com/d9969f29b9.js')
+    link(rel='stylesheet', href='https://use.fontawesome.com/releases/v5.9.0/css/all.css', integrity='sha384-i1LQnF23gykqWXg6jxC2ZbCbUMxyw5gLZY6UiUS98LYV5unm8GWmfkIS6jqJfb4E', crossorigin='anonymous')
+    //- link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css')
+    block head
+  body
+    nav.navbar.navbar-default.navbar-expand-xl.navbar-light.bg-light
+      .navbar-header.d-flex.col
+        a.navbar-brand(href='/')
+          i.fa.fa-cube
+          span Face
+          b Shop
+        button.navbar-toggle.navbar-toggler.ml-auto(type='button', data-target='#navbarCollapse', data-toggle='collapse')
+          span.navbar-toggler-icon
+          span.icon-bar
+          span.icon-bar
+          span.icon-bar
+      // Collection of nav links, forms, and other content for toggling
+      #navbarCollapse.collapse.navbar-collapse.justify-content-start
+        ul.nav.navbar-nav
+          li.nav-item
+            a.nav-link(href='/cart') Products
+            if !userLogin
+              li.nav-item
+                a.nav-link(href='/login') Login
+              li.nav-item
+                a.nav-link(href='/register') Signup
+            else
+              li.nav-item.active
+                a.nav-link(href='/user') User
+              li.nav-item
+                a.nav-link(href='/Friends') Friends
+          li.nav-item.dropdown
+            a.nav-link.dropdown-toggle(data-toggle='dropdown', href='#')
+              span Services 
+              b.caret
+            ul.dropdown-menu
+              li
+                a.dropdown-item(href='#') Web Design
+              li
+                a.dropdown-item(href='#') Web Development
+              li
+                a.dropdown-item(href='#') Graphic Design
+              li
+                a.dropdown-item(href='#') Digital Marketing
+          li.nav-item
+            a.nav-link(href='#') Contact
+        form.navbar-form.form-inline
+          .input-group.search-box
+            input#search.form-control(type='text', placeholder='Search by Name')
+            span.input-group-addon
+              i.fas.fa-search
+        ul.nav.navbar-nav.navbar-right.ml-auto
+          if(userLogin)
+            li.container.d-flex
+              li.nav-item
+                a.nav-link.messages(href='/cart/listcart')
+                  i.fas.fa-shopping-cart
+                  span.cart-count.badge= quantity
+              li.nav-item
+                a.nav-link.notifications(href='#')
+                  i.far.fa-bell
+                  span.badge 1
+              li.nav-item
+                a.nav-link.messages(href='#')
+                  i.far.fa-envelope
+                  span.badge 10
+            li.nav-item.dropdown
+              a.nav-link.dropdown-toggle.user-action(href='#', data-toggle='dropdown')
+                img.avatar(src=userLogin.avatar, alt='Avatar')
+                span= userLogin.fullname + ' '
+                i.fas.fa-caret-down
+              ul.dropdown-menu
+                li
+                  a.dropdown-item(href='/user/' + user._id)
+                    i.far.fa-user
+                    span Profile
+                li
+                  a.dropdown-item(href='#')
+                    i.far.fa-calendar
+                    span Calendar
+                li
+                  a.dropdown-item(href='#')
+                    i.fas.fa-cog
+                    span Settings
+                li.divider.dropdown-divider
+                li
+                  a.dropdown-item(href='/user/logout')
+                    i.fas.fa-power-off
+                    span Logout
+          else
+            //- ul.nav.navbar-nav.navbar-right.ml-auto
+            li.nav-item
+                a.nav-link.messages(href='/cart/listcart')
+                  i.fas.fa-shopping-cart
+                  span.cart-count.badge= quantity
+            li.nav-item
+              a.btn.btn-warning.dropdown-toggle.get-started-btn.mt-1.mb-1(href='#', data-toggle='dropdown') Login
+              ul.dropdown-menu.form-wrapper
+                li
+                  form(action='/login', method='post')
+                    p.hint-text Sign in with your social media account
+                    .form-group.social-btn.clearfix
+                      a.btn.btn-primary.pull-left(href='#')
+                        i.fab.fa-facebook-square
+                        span Facebook
+                      a.btn.btn-info.pull-right(href='#')
+                        i.fab.fa-twitter
+                        span Twitter
+                    .or-seperator
+                      b or
+                    .form-group
+                      input.form-control(name='username', type='text', placeholder='Username', required='required')
+                    .form-group
+                      input.form-control(name='password', type='password', placeholder='Password', required='required')
+                    input.btn.btn-primary.btn-block(type='submit', value='Login')
+                    .form-footer
+                      a(href='#') Forgot Your password?
+            li.nav-item
+              a.btn.btn-primary.dropdown-toggle.get-started-btn.mt-1.mb-1(href='#', data-toggle='dropdown') Sign up
+              ul.dropdown-menu.form-wrapper
+                li
+                  form(action='/register', method='POST')
+                    p.hint-text Fill in this form to create your account!
+                    .form-group
+                      input#username.form-control(type='text', placeholder='Username', required='required')
+                    .form-group
+                      input#email.form-control(name='email', type='email', aria-describedby='emailHelp', placeholder='Enter email')
+                    .form-group
+                      input#password.form-control(type='password', placeholder='Password', required='required')
+                    .form-group
+                      input#username.form-control(name='fullname', type='text', placeholder='Fullname', required='required')   
+                    .form-group
+                      input#avatar.form-control(type='text', name='avatar', placeholder='Url avatar')
+                    .form-group
+                      label.checkbox-inline
+                        input(type='checkbox', required='required')
+                        span   I accept the 
+                        a(href='#') Terms &amp; Conditions
+                    input.btn.btn-primary.btn-block(type='submit', value='Sign up')
+
+
+    block content
+
+    block script
+      script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js', integrity='sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1', crossorigin='anonymous')
+      script(src='https://code.jquery.com/jquery-3.3.1.slim.min.js', integrity='sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo', crossorigin='anonymous')
+      script(src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js', integrity='sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM', crossorigin='anonymous')
+      script(src='/js/common.js')

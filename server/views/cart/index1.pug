@@ -1,0 +1,43 @@
+extends ../layouts/common.pug
+
+block content
+  .jumbotron
+    h1.display-4= userLogin ? "Welcome Back " + userLogin.username : "Hello Anonymous!"
+    if !userLogin
+      a.btn.btn-primary.btn-lg(href='/register', role='button') Create New User
+      a.btn.btn-primary.btn-lg(href='/login', role='button') Login
+    else
+      a.btn.btn-primary.btn-lg(href='/user/logout', role='button') Logout
+  .contrainer
+    .row.pb-4
+      each drug in drugs
+        .col-sm-3
+          .card
+            .card-body
+              h5.card-title.text-truncate= drug.drug_name
+              p.card-text.text-truncate= drug.drug_company
+              div
+                h5.cart-price= drug.price.original
+                a.btn.btn-primary(href='cart/add/' + drug.id) Add to cart
+
+
+    //pagination
+    nav(aria-label='...')
+      ul.pagination
+        li.page-item(class= pagination.page === 1 ? 'disabled' : '')
+          a.page-link(href='/cart?page=' + (pagination.page - 1), tabindex='-1', aria-disabled='true') Previous
+        - for(var i = pagination.firstpage; i < pagination.perpage + pagination.firstpage; i++)
+            if(i === pagination.page)
+              li.page-item.active
+                a.page-link(href='/cart?page=' + i)= i
+            else
+              li.page-item
+                a.page-link(href='/cart?page=' + i)= i
+        li.page-item(class=pagination.page === pagination.maxpage ? 'disabled' : '')
+          a.page-link(href='/cart?page=' + (pagination.page + 1)) Next
+        form.form-inline.my-2.my-lg-0.pl-3(action='/cart', method='GET')
+          input.form-control.mr-sm-2(name='page',type='search', placeholder='Go to page')
+          button.btn.btn-outline-success.my-2.my-sm-0(type='submit') Go
+
+block script
+  script(src='https://unpkg.com/axios/dist/axios.min.js')

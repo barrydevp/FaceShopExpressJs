@@ -1,0 +1,16 @@
+extends ../layouts/common.pug
+
+block content
+	.jumbotron
+		h1.display-4 View
+
+	.container
+		.shadow-sm.p-3.mb-5.bg-white.rounded(style='width: 20rem')
+			.card(style='width: 18rem;')
+			img.card-img-top(style='height: 180px; width: 180px; display: block;', src=user.avatar, data-holder-rendered='true')
+			.card-body
+				h5.card-title User Information
+				p.card-text ID: #{user.id}
+				p.card-text Name: #{user.username}
+				p.card-text Email: #{user.email}
+				a.btn.btn-primary(href='/user') Back to User
