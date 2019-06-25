@@ -15,7 +15,6 @@ const cartRoute = require('./server/routes/cart.route');
 const userloginMiddleware = require('./server/middlewares/userlogin.middleware.js');
 const authMiddleware = require('./server/middlewares/auth.middleware.js');
 const sessionMiddleware = require('./server/middlewares/session.middleware.js');
-const cartMiddleware = require('./server/middlewares/cart.middleware.js');
 
 //constiable
 const app = express();

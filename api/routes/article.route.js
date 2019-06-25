@@ -9,7 +9,7 @@ var router = express.Router();
 router.get('/article', controller.getArticle);
 router.get('/article/:articleId', controller.getArticleById);
 router.get('/comment', controller.getComment);
-router.get('/commnet/:commnetId', controller.getCommentById);
+router.get('/comment/:commnetId', controller.getCommentById);
 
 //route post data
 router.post('/article', controller.postArticle);

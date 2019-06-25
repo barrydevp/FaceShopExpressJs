@@ -11,7 +11,7 @@ module.exports.getArticle = async (req, res, next) => {
         path: 'comments',
         options: {
           sort: { 'date': -1 },
-          limit: 2
+          limit: 5
         },
         populate: {
           path: 'author', 
@@ -84,12 +84,13 @@ module.exports.postArticle = async (req, res, next) => {
   let articleObj = req.body;
   const userId = req.signedCookies.userId;
   articleObj.author = userId;
-  console.log(articleObj);
+ // console.log(articleObj);
 
   try {
     const articleDoc = await articleModel.create(articleObj);
     if(articleDoc) {
       const articleObj = articleDoc.toObject();
+      console.log(articleObj);
       res.send(articleObj);
     }
     else res.send(404);
@@ -105,18 +106,21 @@ module.exports.postComment = async (req, res, next) => {
   let commnetObj = req.body;
   const userId = req.signedCookies.userId;
   commnetObj.author = userId;
-  console.log(commnetObj);
+  //console.log(commnetObj);
   let message = "";
 
   try {
-    await commentModel.create(commnetObj);
-    message = 'post success!';
+    const commentDoc = await commentModel.create(commnetObj);
+    if (commentDoc) {
+      const commentObj = commentDoc.toObject();
+      res.send(commentObj);
+    } else res.send(404);
   } catch (err) {
     console.error(err);
-    message = 'post error';
+    res.send(404);
   }
 
-  res.send(message);
+  //res.send(message);
 }
 
 
@@ -159,6 +163,7 @@ module.exports.addComment = async (req, res, next) => {
 
   try {
     const commentDoc = await commentModel.create(commentObj);
+    //console.log(commentDoc);
     if(commentDoc){
       const articleDoc = await articleModel.findByIdAndUpdate(articleId,
         { $push: { comments : commentDoc._id },
@@ -167,8 +172,9 @@ module.exports.addComment = async (req, res, next) => {
         { safe: true },
       );
       if(articleDoc){
-        const commentObj = commentDoc.toObject();
-        res.json(commentDoc);
+        commentObj = commentDoc.toObject();
+        //console.log(commentObj);
+        res.json(commentObj);
       } else res.send(400);
     } else res.send(404);
   } catch (err) {

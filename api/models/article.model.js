@@ -19,7 +19,7 @@ const articleSchema = new Schema({
   },
   title: {
     type: String,
-    default: 'Barry'
+    default: ''
   },
   body: {
     type: String,

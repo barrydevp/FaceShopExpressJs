@@ -7,10 +7,13 @@ html
     link(rel='stylesheet', href='/css/common.css')
     //- script(src='https://kit.fontawesome.com/d9969f29b9.js')
     link(rel='stylesheet', href='https://use.fontawesome.com/releases/v5.9.0/css/all.css', integrity='sha384-i1LQnF23gykqWXg6jxC2ZbCbUMxyw5gLZY6UiUS98LYV5unm8GWmfkIS6jqJfb4E', crossorigin='anonymous')
+    //- script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js', integrity='sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1', crossorigin='anonymous')
+    //- script(src='https://code.jquery.com/jquery-3.3.1.slim.min.js', integrity='sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo', crossorigin='anonymous')
+    //- script(src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js', integrity='sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM', crossorigin='anonymous')
     //- link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css')
     block head
   body
-    nav.navbar.navbar-default.navbar-expand-xl.navbar-light.bg-light
+    nav.navbar.navbar-default.navbar-expand-xl.navbar-light.bg-light.mb-4
       .navbar-header.d-flex.col
         a.navbar-brand(href='/')
           i.fa.fa-cube
@@ -73,12 +76,12 @@ html
                   span.badge 10
             li.nav-item.dropdown
               a.nav-link.dropdown-toggle.user-action(href='#', data-toggle='dropdown')
-                img.avatar(src=userLogin.avatar, alt='Avatar')
-                span= userLogin.fullname + ' '
+                img.user-avatar.avatar(src=userLogin.avatar, alt='Avatar')
+                span.user-fullname= userLogin.fullname + ' '
                 i.fas.fa-caret-down
               ul.dropdown-menu
                 li
-                  a.dropdown-item(href='/user/' + user._id)
+                  a.userid.dropdown-item(id=user._id, href='/user/' + user._id)
                     i.far.fa-user
                     span Profile
                 li
@@ -145,6 +148,7 @@ html
                         a(href='#') Terms &amp; Conditions
                     input.btn.btn-primary.btn-block(type='submit', value='Sign up')
 
+    script(src='/js/common.js')
 
     block content
 
@@ -152,4 +156,3 @@ html
       script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js', integrity='sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1', crossorigin='anonymous')
       script(src='https://code.jquery.com/jquery-3.3.1.slim.min.js', integrity='sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo', crossorigin='anonymous')
       script(src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js', integrity='sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM', crossorigin='anonymous')
-      script(src='/js/common.js')
