@@ -203,7 +203,7 @@ function createLiCommentText(comment, article) {
 	let dropdownCmt = '';
 	if(comment.author._id == user.id) {
 		dropdownCmt = '<div class="dropdown"><button class="btn btn-link dropdown-toggle" id="gedf-drop1" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-ellipsis-h"></i></button><div class="dropdown-menu dropdown-menu-right" aria-labelledby="gedf-drop1"><button id="' + comment._id + '"  class="edit-cmt btn btn-link dropdown-item" onclick="editComment.bind(this)()">Edit</button><button id="' + comment._id + ',' + article._id + '" class="del-cmt btn btn-link dropdown-item" onclick="deleteComment.bind(this)()">Delete</button></div></div>';
-	} else if(article._id == user.id) {
+	} else if(article.author._id == user.id) {
 			dropdownCmt = '<div class="dropdown"><button class="btn btn-link dropdown-toggle" id="gedf-drop1" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-ellipsis-h"></i></button><div class="dropdown-menu dropdown-menu-right" aria-labelledby="gedf-drop1"><button id="' + comment._id + ',' + article._id + '" class="del-cmt btn btn-link dropdown-item" onclick="deleteComment.bind(this)()">Delete</button></div></div>';
 	}
 
