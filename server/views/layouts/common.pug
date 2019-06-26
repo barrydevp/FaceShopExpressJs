@@ -132,11 +132,11 @@ html
                   form(action='/register', method='POST')
                     p.hint-text Fill in this form to create your account!
                     .form-group
-                      input#username.form-control(type='text', placeholder='Username', required='required')
+                      input#username.form-control(name='username', type='text', placeholder='Username', required='required')
                     .form-group
                       input#email.form-control(name='email', type='email', aria-describedby='emailHelp', placeholder='Enter email')
                     .form-group
-                      input#password.form-control(type='password', placeholder='Password', required='required')
+                      input#password.form-control(name='password', type='password', placeholder='Password', required='required')
                     .form-group
                       input#username.form-control(name='fullname', type='text', placeholder='Fullname', required='required')   
                     .form-group

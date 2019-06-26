@@ -4,7 +4,7 @@ async function getListArticle() {
 	try {
 		let res = await axios.get('/api/articles/article');
 		arrArticle = res.data;
-		console.log(res);
+		//console.log(res);
 	} catch(err) {
 		console.error(err);
 	}
@@ -65,7 +65,7 @@ async function postArticle() {
 
 async function postComment() {
 	const articleId = this.id;
-	const query = '.id-' + articleId + '.article input.add-comment';
+	const query = '.id-' + articleId + '.article textarea.add-comment';
 	const body = document.querySelector(query);
 	const query2 = '.id-' + articleId + '.article ul.list-group';
 	const ulListGroup = document.querySelector(query2);
@@ -118,6 +118,86 @@ async function deletePost() {
 	}
 }
 
+function editComment() {
+	const commentId = this.id;
+	let query = '.id-' + commentId + ' div.form-control';
+	let divComment = document.querySelector(query);
+	let inputComment = document.createElement("textarea");
+	inputComment.className = divComment.className;
+	inputComment.rows = "1";
+	inputComment.value = divComment.childNodes[1].textContent;
+	let buttonSave = document.createElement("button");
+	buttonSave.className = 'btn-addcomment btn btn-link';
+	buttonSave.id = commentId;
+	buttonSave.onclick = saveComment.bind(buttonSave, divComment);
+	buttonSave.innerHTML = '<i class="fas fa-check-circle"></i>';
+	query = '.id-' + commentId + ' div.form-group';
+	let divForm = document.querySelector(query);
+	divComment.remove();
+	divForm.insertBefore(buttonSave, divForm.childNodes[0]);
+	divForm.insertBefore(inputComment, divForm.childNodes[0]);
+}
+
+async function saveComment(divComment) {
+	const commentId = this.id;
+	let query = '.id-' + commentId + ' textarea.form-control';
+	let inputComment = document.querySelector(query);
+	let data = {
+		body: inputComment.value
+	};
+	divComment.childNodes[1].textContent = data.body;
+	try {
+		let url = '/api/articles/comment/' + commentId;
+		await axios.patch(url, data);
+		inputComment.remove();
+		this.remove();
+		query = '.id-' + commentId + ' div.form-group';
+		let divForm = document.querySelector(query);
+		divForm.insertBefore(divComment, divForm.childNodes[0]);
+	} catch(err) {
+		console.error(err);
+	}
+}
+
+function editArticle() {
+	const articleId = this.id;
+	let query = '.id-' + articleId + ' div.card-body';
+	let divCardBody = document.querySelector(query);
+	let newDivCardBody = document.createElement("div");
+	newDivCardBody.className = divCardBody.className;
+	newDivCardBody.innerHTML = '<input class="form-control mb-2" type="text" ><textarea class="form-control mb-2" id="message" rows="3"></textarea><button id="' + articleId + '" class="post-article btn btn-primary">Save</button>';
+	newDivCardBody.childNodes[0].value = divCardBody.childNodes[0].textContent;
+	newDivCardBody.childNodes[1].value = divCardBody.childNodes[1].textContent;
+	newDivCardBody.childNodes[2].onclick = saveArticle.bind(newDivCardBody.childNodes[2], divCardBody, newDivCardBody);
+	divCardBody.remove();
+	query = '.id-' + articleId + '.article.card.gedf-card';
+	let articleDiv = document.querySelector(query);
+	articleDiv.insertBefore(newDivCardBody, articleDiv.childNodes[1]);
+}
+
+async function saveArticle(divCardBody, newDivCardBody) {
+	const articleId = this.id;
+	console.log(articleId);
+	let query = '.id-' + articleId + ' textarea.form-control';
+	// let inputComment = document.querySelector(query);
+	let data = {
+		title: newDivCardBody.childNodes[0].value,
+		body: newDivCardBody.childNodes[1].value
+	};
+	divCardBody.childNodes[1].textContent = data.body;
+	divCardBody.childNodes[0].textContent = data.title;
+	try {
+		let url = '/api/articles/article/' + articleId;
+		await axios.patch(url, data);
+		newDivCardBody.remove();
+		query = '.id-' + articleId + '.article.card.gedf-card';
+		let articleDiv = document.querySelector(query);
+		articleDiv.insertBefore(divCardBody, articleDiv.childNodes[1]);
+	} catch(err) {
+		console.error(err);
+	}
+}
+
 function createLiCommentText(comment, article) {
 	let commentInnerText = '';
 	let dropdownCmt = '';
@@ -127,7 +207,7 @@ function createLiCommentText(comment, article) {
 			dropdownCmt = '<div class="dropdown"><button class="btn btn-link dropdown-toggle" id="gedf-drop1" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-ellipsis-h"></i></button><div class="dropdown-menu dropdown-menu-right" aria-labelledby="gedf-drop1"><button id="' + comment._id + ',' + article._id + '" class="del-cmt btn btn-link dropdown-item" onclick="deleteComment.bind(this)()">Delete</button></div></div>';
 	}
 
-	commentInnerText = '<li id="' + comment._id + '" class="id-' + comment._id + ' comment list-group-item"><div class="media"><a class="card-link" href="/user/view/' + (article.author._id == user.id ? "" : article.author._id) + '"><img class="rounded-circle mr-3" src="' + comment.author.avatar + '" width="45" alt="..."/></a><div class="media-body"><div class="form-group d-flex justify-content-between align-items-center"><div class="form-control" readonly="readonly"><a class="card-link font-weight-bold" href="/user/view/' + (article.author._id == user.id ? "" : article.author._id) + '">' + comment.author.fullname + '</a> ' + comment.body + '</div>' + dropdownCmt + '</div></div></div></li>';
+	commentInnerText = '<li id="' + comment._id + '" class="id-' + comment._id + ' comment list-group-item"><div class="media"><a class="card-link" href="/user/view/' + (article.author._id == user.id ? "" : article.author._id) + '"><img class="rounded-circle mr-3" src="' + comment.author.avatar + '" width="45" alt="..."/></a><div class="media-body"><div class="form-group d-flex justify-content-between align-items-center"><div class="form-control" readonly="readonly"><a class="card-link font-weight-bold" href="/user/view/' + (article.author._id == user.id ? "" : article.author._id) + '">' + comment.author.fullname + ' </a><span>' + comment.body + '</span></div>' + dropdownCmt + '</div></div></div></li>';
 	return commentInnerText;
 }
 
@@ -139,13 +219,13 @@ function createLiCommentElement(comment, articleId) {
 	let dropdownCmt = '';
 	dropdownCmt = '<div class="dropdown"><button class="btn btn-link dropdown-toggle" id="gedf-drop1" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-ellipsis-h"></i></button><div class="dropdown-menu dropdown-menu-right" aria-labelledby="gedf-drop1"><button id="' + comment._id + '"  class="edit-cmt btn btn-link dropdown-item" onclick="editComment.bind(this)()">Edit</button><button id="' + comment._id + ',' + articleId + '" class="del-cmt btn btn-link dropdown-item" onclick="deleteComment.bind(this)()">Delete</button></div></div>';
 
-	commentLiElement.innerHTML = '<div class="media"><a class="card-link" href="/user/view/"><img class="rounded-circle mr-3" src="' + user.avatar + '" width="45" alt="..."/></a><div class="media-body"><div class="form-group d-flex justify-content-between align-items-center"><div class="form-control" readonly="readonly"><a class="card-link font-weight-bold" href="/user/view/">' + user.fullname + ' </a>' + comment.body + '</div>' + dropdownCmt + '</div></div></div>';
+	commentLiElement.innerHTML = '<div class="media"><a class="card-link" href="/user/view/"><img class="rounded-circle mr-3" src="' + user.avatar + '" width="45" alt="..."/></a><div class="media-body"><div class="form-group d-flex justify-content-between align-items-center"><div class="form-control" readonly="readonly"><a class="card-link font-weight-bold" href="/user/view/">' + user.fullname + ' </a><span>' + comment.body + '</span></div>' + dropdownCmt + '</div></div></div>';
 	return commentLiElement;
 }
 
 function createCardArticleText(article) {
 	let articleInnerText = '';
-	let dropdownHead = article.author._id != user.id ? '' : ('<div><div class="dropdown"><button class="btn btn-link dropdown-toggle" id="gedf-drop1" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-ellipsis-h"></i></button><div class="dropdown-menu dropdown-menu-right" aria-labelledby="gedf-drop1"><button id="' + article._id + '" class="edit-article btn btn-link dropdown-item" onclick="editPost.bind(this)()">Edit</button><button id="' + article._id + '" class="del-article btn btn-link dropdown-item" onclick="deletePost.bind(this)()">Delete</button></div></div></div>');
+	let dropdownHead = article.author._id != user.id ? '' : ('<div><div class="dropdown"><button class="btn btn-link dropdown-toggle" id="gedf-drop1" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-ellipsis-h"></i></button><div class="dropdown-menu dropdown-menu-right" aria-labelledby="gedf-drop1"><button id="' + article._id + '" class="edit-article btn btn-link dropdown-item" onclick="editArticle.bind(this)()">Edit</button><button id="' + article._id + '" class="del-article btn btn-link dropdown-item" onclick="deletePost.bind(this)()">Delete</button></div></div></div>');
 
 		let cardHeader = '<div class="card-header"><div class="d-flex justify-content-between align-items-center"><div class="d-flex justify-content-between align-items-center"><div class="mr-2"><a href="/user/view/' + (article.author._id == user.id ? "" : article.author._id) + '"><img class="rounded-circle" width="70" src="' + article.author.avatar + '" alt=""/></a></div><div class="ml-2"><div class="h4 m-0">@ <a class="card-link" href="/user/view/' + (article.author._id == user.id ? "" : article.author._id) + '">' + article.author.fullname + '</a></div><div class="text-muted h7 mb-2" style="font-size: 0.9em;"><i class="far fa-clock"><span> ' + calculateTime(Date.now(), new Date(article.date)) + '</span></i></div></div></div>' + dropdownHead + '</div></div>';
 
@@ -156,7 +236,7 @@ function createCardArticleText(article) {
 			comments += createLiCommentText(comment, article);
 		}
 
-		let cardFooter = '<div class="card-footer"><a class="card-link" href="#"><i class="fas fa-thumbs-up"></i> Like</a><a class="card-link" data-toggle="collapse" href="#collapseComment' + article._id + '" role="button" aria-expanded="false" aria-controls="collapseComment' + article._id + '"><i class="fas fa-comment"></i> Comment</a><a class="card-link" href="#"><i class="fas fa-share"></i> Share</a></div><ul class="collapse list-group list-group-flush" id="collapseComment' + article._id + '"><li class="list-group-item"><div class="media"><img class="rounded-circle mr-3" src="' + user.avatar +'" width="45" alt="..."/><div class="media-body"><div class="form-group d-flex justify-content-between align-items-center"><input class="add-comment form-control mr-2" type="text" placeholder="Input comment"/><button id="' + article._id + '" class="btn-addcomment btn btn-link" onclick="postComment.bind(this)()"><i class="fas fa-arrow-circle-up"></i></button></div></div></div></li>' + comments + '</ul>';
+		let cardFooter = '<div class="card-footer"><a class="card-link" href="#"><i class="fas fa-thumbs-up"></i> Like</a><a class="card-link" data-toggle="collapse" href="#collapseComment' + article._id + '" role="button" aria-expanded="false" aria-controls="collapseComment' + article._id + '"><i class="fas fa-comment"></i> Comment</a><a class="card-link" href="#"><i class="fas fa-share"></i> Share</a></div><ul class="collapse list-group list-group-flush" id="collapseComment' + article._id + '"><li class="list-group-item"><div class="media"><img class="rounded-circle mr-3" src="' + user.avatar +'" width="45" alt="..."/><div class="media-body"><div class="form-group d-flex justify-content-between align-items-center"><textarea class="add-comment form-control mr-2" rows="1" type="text" placeholder="Input comment"></textarea><button id="' + article._id + '" class="btn-addcomment btn btn-link" onclick="postComment.bind(this)()"><i class="fas fa-arrow-circle-up"></i></button></div></div></div></li>' + comments + '</ul>';
 
 		articleInnerText = '<div id="' + article._id + '" class="id-' + article._id + ' article card gedf-card mb-4">' + cardHeader + cardBody + cardFooter + '</div>';
 
@@ -167,13 +247,13 @@ function createCardArticleElement(article) {
 	let cardArticleDivElement = document.createElement("DIV");
 	cardArticleDivElement.id = article._id;
 	cardArticleDivElement.className = 'id-' + article._id + ' article card gedf-card mb-4';
-	let dropdownHead = '<div><div class="dropdown"><button class="btn btn-link dropdown-toggle" id="gedf-drop1" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-ellipsis-h"></i></button><div class="dropdown-menu dropdown-menu-right" aria-labelledby="gedf-drop1"><button id="' + article._id + '" class="edit-article btn btn-link dropdown-item" onclick="editPost.bind(this)()">Edit</button><button id="' + article._id + '" class="del-article btn btn-link dropdown-item" onclick="deletePost.bind(this)()">Delete</button></div></div></div>';
+	let dropdownHead = '<div><div class="dropdown"><button class="btn btn-link dropdown-toggle" id="gedf-drop1" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-ellipsis-h"></i></button><div class="dropdown-menu dropdown-menu-right" aria-labelledby="gedf-drop1"><button id="' + article._id + '" class="edit-article btn btn-link dropdown-item" onclick="editArticle.bind(this)()">Edit</button><button id="' + article._id + '" class="del-article btn btn-link dropdown-item" onclick="deletePost.bind(this)()">Delete</button></div></div></div>';
 
 		let cardHeader = '<div class="card-header"><div class="d-flex justify-content-between align-items-center"><div class="d-flex justify-content-between align-items-center"><div class="mr-2"><a href="/user/view/"><img class="rounded-circle" width="70" src="' + user.avatar + '" alt=""/></a></div><div class="ml-2"><div class="h4 m-0">@ <a class="card-link" href="/user/view/">' + user.fullname + '</a></div><div class="text-muted h7 mb-2" style="font-size: 0.9em;"><i class="far fa-clock"><span> ' + calculateTime(Date.now(), new Date(article.date)) + '</span></i></div></div></div>' + dropdownHead + '</div></div>';
 
 		let cardBody = '<div class="card-body"><h4 class="article-title card-title">' + article.title + '</h5><p class="article-body card-text">' + article.body + '</p></div>';
 
-		let cardFooter = '<div class="card-footer"><a class="card-link" href="#"><i class="fas fa-thumbs-up"></i> Like</a><a class="card-link" data-toggle="collapse" href="#collapseComment' + article._id + '" role="button" aria-expanded="false" aria-controls="collapseComment' + article._id + '"><i class="fas fa-comment"></i> Comment</a><a class="card-link" href="#"><i class="fas fa-share"></i> Share</a></div><ul class="collapse list-group list-group-flush" id="collapseComment' + article._id + '"><li class="list-group-item"><div class="media"><img class="rounded-circle mr-3" src="' + user.avatar +'" width="45" alt="..."/><div class="media-body"><div class="form-group d-flex justify-content-between align-items-center"><input class="add-comment form-control mr-2" type="text" placeholder="Input comment"/><button id="' + article._id + '" class="btn-addcomment btn btn-link" onclick="postComment.bind(this)()"><i class="fas fa-arrow-circle-up"></i></button></div></div></div></li></ul>';
+		let cardFooter = '<div class="card-footer"><a class="card-link" href="#"><i class="fas fa-thumbs-up"></i> Like</a><a class="card-link" data-toggle="collapse" href="#collapseComment' + article._id + '" role="button" aria-expanded="false" aria-controls="collapseComment' + article._id + '"><i class="fas fa-comment"></i> Comment</a><a class="card-link" href="#"><i class="fas fa-share"></i> Share</a></div><ul class="collapse list-group list-group-flush" id="collapseComment' + article._id + '"><li class="list-group-item"><div class="media"><img class="rounded-circle mr-3" src="' + user.avatar +'" width="45" alt="..."/><div class="media-body"><div class="form-group d-flex justify-content-between align-items-center"><textarea class="add-comment form-control mr-2" rows="1" type="text" placeholder="Input comment"></textarea><button id="' + article._id + '" class="btn-addcomment btn btn-link" onclick="postComment.bind(this)()"><i class="fas fa-arrow-circle-up"></i></button></div></div></div></li></ul>';
 
 		cardArticleDivElement.innerHTML =  cardHeader + cardBody + cardFooter ;
 

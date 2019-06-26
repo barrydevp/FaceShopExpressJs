@@ -6,10 +6,12 @@ const drugModel = require('../../api/models/drug.model');
 module.exports = async (req, res, next) => {
   //contain current path url
   //console.log((req.path).indexOf('/api') !== -1);
-  if (!(req.path == '/login' || req.path == '/register' || (req.path).indexOf('/api') !== -1 ))
+  let invalidPreUrl = req.path == '/user/logout' || req.path == '/login' || req.path == '/register' || (req.path).indexOf('/api') !== -1
+  if (!invalidPreUrl)
     res.cookie('preUrl', req.originalUrl, {
       signed: true
     });
+  //console.log(req.originalUrl);
   //console.log(req.signedCookies.preUrl);
   if(!req.signedCookies.sessionId) {
     try {
