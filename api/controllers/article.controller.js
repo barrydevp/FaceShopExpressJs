@@ -90,7 +90,7 @@ module.exports.postArticle = async (req, res, next) => {
     const articleDoc = await articleModel.create(articleObj);
     if(articleDoc) {
       const articleObj = articleDoc.toObject();
-      console.log(articleObj);
+      //console.log(articleObj);
       res.send(articleObj);
     }
     else res.send(404);

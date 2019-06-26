@@ -7,6 +7,7 @@ module.exports = async (req, res, next) => {
   //contain current path url
   //console.log((req.path).indexOf('/api') !== -1);
   let invalidPreUrl = req.path == '/user/logout' || req.path == '/login' || req.path == '/register' || (req.path).indexOf('/api') !== -1
+    || (req.path).indexOf('/js') !== -1 || (req.path).indexOf('/css') !== -1;
   if (!invalidPreUrl)
     res.cookie('preUrl', req.originalUrl, {
       signed: true

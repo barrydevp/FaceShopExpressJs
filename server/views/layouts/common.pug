@@ -28,6 +28,8 @@ html
       #navbarCollapse.collapse.navbar-collapse.justify-content-start
         ul.nav.navbar-nav
           li.nav-item
+            a.nav-link(href='/social') Social Network
+          li.nav-item
             a.nav-link(href='/cart') Products
             if !userLogin
               li.nav-item
@@ -52,8 +54,6 @@ html
                 a.dropdown-item(href='#') Graphic Design
               li
                 a.dropdown-item(href='#') Digital Marketing
-          li.nav-item
-            a.nav-link(href='#') Contact
         form.navbar-form.form-inline
           .input-group.search-box
             input#search.form-control(type='text', placeholder='Search by Name')
@@ -75,7 +75,7 @@ html
                   i.far.fa-envelope
                   span.badge 10
             li.nav-item.dropdown
-              a.nav-link.dropdown-toggle.user-action(href='#', data-toggle='dropdown')
+              button.btn.btn-link.nav-link.dropdown-toggle.user-action(data-toggle='dropdown')
                 img.user-avatar.avatar(src=userLogin.avatar, alt='Avatar')
                 span.user-fullname= userLogin.fullname + ' '
                 i.fas.fa-caret-down

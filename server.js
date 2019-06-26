@@ -38,6 +38,14 @@ app.use('/friends', authMiddleware.requireAuth, friendsRoute);
 app.use('/cart', cartRoute);
 
 //app get
+app.use('/social', authMiddleware.requireAuth)
+app.get('/social', (req, res) => {
+	res.render('social/index', {
+		userLogin: res.locals.user,
+		quantity: res.locals.quantity,
+	});
+});
+
 app.get('/', (req, res) => {
 	res.render('index', {
 		userLogin: res.locals.user,

@@ -1,24 +1,22 @@
-extends ./layouts/common.pug
+extends ../layouts/common.pug
       
 block content
   .container-fluid.gedf-wrapper
     .row
       .col-md-3.left
-        .card
-          .card-body
-            .h5 @LeeCross
-            .h7.text-muted Fullname : Miracles Lee Cross
-            .h7
-              | Developer of web applications, JavaScript, PHP, Java, Python, Ruby, Java, Node.js,
-              | etc.
-          ul.list-group.list-group-flush
-            li.list-group-item
-              .h6.text-muted Followers
-              .h5 5.2342
-            li.list-group-item
-              .h6.text-muted Following
-              .h5 6758
-            li.list-group-item Vestibulum at eros
+        ul.list-group.ml-3
+          li.listview
+            a.btn.btn-link.d-flex.align-items-center(href='/user/view')
+              img.rounded-circle.mr-1(width='25', src='https://picsum.photos/50/50', alt='...')
+              span= user.fullname
+          li.listview.active
+            a.btn.btn-link.d-flex.align-items-center(href='/user/view')
+              img.rounded-circle.mr-1(width='25', src='https://picsum.photos/50/50', alt='...')
+              span= user.fullname
+          li.listview
+            a.btn.btn-link.d-flex.align-items-center(href='/user/view')
+              img.rounded-circle.mr-1(width='25', src='https://picsum.photos/50/50', alt='...')
+              span= user.fullname
       .col-md-6.center
 
         // Post /////
@@ -43,4 +41,4 @@ block content
             a.card-link(href='#') Another link
 
   script(src='https://unpkg.com/axios/dist/axios.min.js')
-  script(src='/js/index.js')
+  script(src='/js/social.js')
