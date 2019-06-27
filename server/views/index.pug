@@ -1,46 +1,20 @@
 extends ./layouts/common.pug
       
 block content
-  .container-fluid.gedf-wrapper
+  .container
     .row
-      .col-md-3.left
-        .card
-          .card-body
-            .h5 @LeeCross
-            .h7.text-muted Fullname : Miracles Lee Cross
-            .h7
-              | Developer of web applications, JavaScript, PHP, Java, Python, Ruby, Java, Node.js,
-              | etc.
-          ul.list-group.list-group-flush
-            li.list-group-item
-              .h6.text-muted Followers
-              .h5 5.2342
-            li.list-group-item
-              .h6.text-muted Following
-              .h5 6758
-            li.list-group-item Vestibulum at eros
-      .col-md-6.center
+      .col-sm-6.col-xl-10.col
+        | 1 of 2
+      .col-sm-6.col-xl-2.col
+        | 2 of 2
+    .row
+      .col
+        | 1 of 3
+      .col
+        | 2 of 3
+      .col
+        | 3 of 3
 
-        // Post /////
-      .col-md-3.right
-        .card.gedf-card
-          .card-body
-            h5.card-title Card title
-            h6.card-subtitle.mb-2.text-muted Card subtitle
-            p.card-text
-              | Some quick example text to build on the card title and make up the bulk of the
-              | card&apos;s content.
-            a.card-link(href='#') Card link
-            a.card-link(href='#') Another link
-        .card.gedf-card
-          .card-body
-            h5.card-title Card title
-            h6.card-subtitle.mb-2.text-muted Card subtitle
-            p.card-text
-              | Some quick example text to build on the card title and make up the bulk of the
-              | card&apos;s content.
-            a.card-link(href='#') Card link
-            a.card-link(href='#') Another link
 
   script(src='https://unpkg.com/axios/dist/axios.min.js')
   script(src='/js/index.js')

@@ -13,9 +13,23 @@ a.btn-link:visited {
 	text-decoration: none;
 }
 
+.col-md-3.left span {
+	font-size: 13px;
+	color: #1d2129;
+}
+
+.col-md-3.left i {
+	font-size: 20px;
+}
+
+.col-md-3.left .active span {
+	font-weight: 600;
+}
+
 li.listview {
 	list-style: none;
 	border: 1px solid transparent;
+	margin-bottom: -4px;
 }
 
 li.listview.active a{
@@ -371,6 +385,9 @@ img.avatar {
 		width: 300px;
 		margin-left: 30px;
 	}
+	.article .card-footer .btn {
+		margin: 8px 0px 8px 0px;
+	}
 }
 @media (max-width: 1199px){
 	.form-inline {
@@ -379,6 +396,20 @@ img.avatar {
 	}
 	.input-group {
 		width: 100%;
+	}
+	
+}
+
+@media (max-width: 767px){
+	.row .left {
+		display: none;
+	}
+	.row .right {
+		display: none;
+	}
+	.article .card-footer .btn {
+		font-size: 13px;
+		margin: 0;
 	}
 }
 

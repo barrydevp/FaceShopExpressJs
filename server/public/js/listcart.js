@@ -25,19 +25,25 @@ async function getListCart() {
 }
 
 function render(carts) {
-  const ulListCart = document.querySelector('ul.list-cart');
-  let content = "";
+  const divContainer = document.querySelector('.container-fluid.list-cart');
   let count = 0;
+  let totalPrice = 0;
+  let content = '<div class="col-md-8"><!-- SHIPPING METHOD--><div class="panel panel-default"><div class="panel-heading text-center"><h2>Current Cart</h2></div><div class="panel-body"><table class="table borderless"><thead><tr><td><strong class="cart-count"></strong></td></tr></thead>';
   for(let cart of carts) { 
+    let price = (cart.infor.price.original * ( 100 - cart.infor.price.sale )) / 100;
+    totalPrice += price * cart.count;
     count += cart.count;
-    content += '<li class="list-group-item d-flex justify-content-between align-items-center pt-2 pb-0"><blockquote class="blockquote p-0"><p class="h6 mb-0">' + cart.infor.name + '</p><footer class="h6 blockquote-footer">$ ' + Math.floor(cart.infor.price.original * ( 100 - cart.infor.price.sale )) / 100 + '</footer><span class="badge badge-primary badge-pill" style="font-size: 100%;">' + cart.count + '</span></blockquote><button id="' + cart._id + '" class="del-button btn btn-primary btn-sm" type="button">Delete</button></li>'
+    content += createItem(cart);
   }
-  ulListCart.innerHTML = content;
+  totalPrice = Math.floor(totalPrice * 100) / 100
+  content += '</table></div></div></div>';
+  let reviewoder = '<div class="col-md-4"><div class="panel panel-default"><div class="panel-heading text-center"><h2>Review Order</h2></div><div class="panel-body"><div><strong>Subtotal (' + count + ' item)</strong><div class="pull-right"><span>$</span><span>' + totalPrice + '</span></div></div><div><small>Shipping</small><div class="pull-right"><span>-</span></div><hr/></div><div><strong>Order Total</strong><div class="pull-right" style="font-size: 30px;"><span>$</span><span>' + totalPrice + '</span></div><hr/></div><button class="btn btn-primary btn-lg btn-block" type="button">Checkout</button></div></div></div>';
 
+  divContainer.innerHTML = '<div class="row">' + reviewoder + content + '</div>';
   const tagCartCount = document.querySelectorAll('.cart-count');
   tagCartCount[0].textContent = count;
-  tagCartCount[1].textContent = count + ' Item in Cart';;
-
+  tagCartCount[1].textContent = 'Your Cart: ' + count + ' item';
+  quantity = count;
   //- for(tag of tagCartCount) {
   //-   tag.textContent = count + ' Item in Cart';
   //- }
@@ -47,6 +53,12 @@ function render(carts) {
   for(let button of buttons) {
     button.addEventListener('click', removeItem);
   }
+}
+
+function createItem(cart) {
+  let price = (Math.floor(cart.infor.price.original * ( 100 - cart.infor.price.sale )) / 100);
+  let content = '<tr><td><div class="media"><a class="thumbnail pull-left mr-2" href="/cart/view/' + cart._id + '"><img class="media-object" src="' + cart.infor.image + '" style="width: 72px; height: 72px;"/></a><div class="name-cart media-body"><h5 class="media-heading">' + cart.infor.name + '</h5></div></div></td><td class="" style="color: #ec5252;">$' + price + '</td><td class="">' + cart.count + '</td><td class="font-weight-bold" style="color: #ec5252;">$' + Math.floor(price * cart.count * 100) / 100 + '</td><td class=""><a id="' + cart._id + '" class="del-button btn btn-link" type="button"><i class="fas fa-trash" style="color: #ec5252;"></i></a></td></tr>'
+  return content;
 }
 
 getListCart();

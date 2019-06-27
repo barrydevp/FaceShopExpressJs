@@ -1,4 +1,6 @@
 let arrArticle = [];
+let start = 0;
+let count = 4;
 
 async function getListArticle() {
 	try {
@@ -10,7 +12,8 @@ async function getListArticle() {
 	}
 
 	if(arrArticle) {
-		renderArticle(arrArticle)
+		renderArticle(arrArticle.slice(start, 8));
+		start = 8;
 	}
 
 }
@@ -248,7 +251,7 @@ function createCardArticleText(article) {
 			comments += createLiCommentText(comment, article);
 		}
 
-		let cardFooter = '<div class="card-footer"><button class="btn btn-link card-link"><i class="fas fa-thumbs-up"></i> Like</button><button class="btn btn-link card-link" type="button" data-toggle="collapse" data-target="#collapseComment' + article._id + '" role="button" aria-expanded="false" aria-controls="collapseComment' + article._id + '"><i class="fas fa-comment"></i> Comment</button><button class="btn btn-link card-link" ><i class="fas fa-share"></i> Share</button></div><ul class="collapse list-group list-group-flush" id="collapseComment' + article._id + '"><li class="comment list-group-item"><div class="media"><img class="rounded-circle mr-1" src="' + user.avatar +'" width="35" alt="..."/><div class="media-body"><div class="form-group d-flex justify-content-between align-items-center"><textarea class="add-comment form-control mr-2" rows="1" type="text" placeholder="Input comment"></textarea><button id="' + article._id + '" class="btn-addcomment btn btn-link" onclick="postComment.bind(this)()"><i class="fas fa-arrow-circle-up"></i></button></div></div></div></li>' + comments + '</ul>';
+		let cardFooter = '<div class="card-footer" ><button class="col-4 btn btn-link card-link" ><i class="fas fa-thumbs-up"></i> Like</button><button class="col-4 btn btn-link card-link"  type="button" data-toggle="collapse" data-target="#collapseComment' + article._id + '" role="button" aria-expanded="false" aria-controls="collapseComment' + article._id + '"><i class="fas fa-comment"></i> Comment</button><button class="col-4 btn btn-link card-link" ><i class="fas fa-share"></i> Share</button></div><ul class="collapse list-group list-group-flush" id="collapseComment' + article._id + '"><li class="comment list-group-item"><div class="media"><img class="rounded-circle mr-1" src="' + user.avatar +'" width="35" alt="..."/><div class="media-body"><div class="form-group d-flex justify-content-between align-items-center"><textarea class="add-comment form-control mr-2" rows="1" type="text" placeholder="Input comment"></textarea><button id="' + article._id + '" class="btn-addcomment btn btn-link" onclick="postComment.bind(this)()"><i class="fas fa-arrow-circle-up"></i></button></div></div></div></li>' + comments + '</ul>';
 
 		articleInnerText = '<div id="' + article._id + '" class="id-' + article._id + ' article card gedf-card mb-4">' + cardHeader + cardBody + cardFooter + '</div>';
 
@@ -265,17 +268,36 @@ function createCardArticleElement(article) {
 
 		let cardBody = '<div class="card-body"><h4 class="article-title card-title">' + article.title + '</h5><p class="article-body card-text">' + convertStringToTextHTML(article.body) + '</p></div>';
 
-		let cardFooter = '<div class="card-footer"><button class="btn btn-link card-link"><i class="fas fa-thumbs-up"></i> Like</button><button class="btn btn-link card-link" type="button" data-toggle="collapse" data-target="#collapseComment' + article._id + '" role="button" aria-expanded="false" aria-controls="collapseComment' + article._id + '"><i class="fas fa-comment"></i> Comment</button><button class="btn btn-link card-link" ><i class="fas fa-share"></i> Share</button></div><ul class="collapse list-group list-group-flush" id="collapseComment' + article._id + '"><li class="comment list-group-item"><div class="media"><img class="rounded-circle mr-1" src="' + user.avatar +'" width="35" alt="..."/><div class="media-body"><div class="form-group d-flex justify-content-between align-items-center"><textarea class="add-comment form-control mr-2" rows="1" type="text" placeholder="Input comment"></textarea><button id="' + article._id + '" class="btn-addcomment btn btn-link" onclick="postComment.bind(this)()"><i class="fas fa-arrow-circle-up"></i></button></div></div></div></li></ul>';
+		let cardFooter = '<div class="card-footer"><button class="col-4 btn btn-link card-link"><i class="fas fa-thumbs-up"></i> Like</button><button class="col-4 btn btn-link card-link" type="button" data-toggle="collapse" data-target="#collapseComment' + article._id + '" role="button" aria-expanded="false" aria-controls="collapseComment' + article._id + '"><i class="fas fa-comment"></i> Comment</button><button class="col-4 btn btn-link card-link" ><i class="fas fa-share"></i> Share</button></div><ul class="collapse list-group list-group-flush" id="collapseComment' + article._id + '"><li class="comment list-group-item"><div class="media"><img class="rounded-circle mr-1" src="' + user.avatar +'" width="35" alt="..."/><div class="media-body"><div class="form-group d-flex justify-content-between align-items-center"><textarea class="add-comment form-control mr-2" rows="1" type="text" placeholder="Input comment"></textarea><button id="' + article._id + '" class="btn-addcomment btn btn-link" onclick="postComment.bind(this)()"><i class="fas fa-arrow-circle-up"></i></button></div></div></div></li></ul>';
 
 		cardArticleDivElement.innerHTML =  cardHeader + cardBody + cardFooter ;
 
 		return cardArticleDivElement;
 }
 
+function renderMoreListArticle(arrArticle) {
 
+	if(arrArticle) {
+		let center = document.querySelector('.col-md-6.center');
+		for(article of arrArticle) {
+			center.innerHTML += createCardArticleText(article);
+		}
+		start = end;
+	}
+}
+
+function windowOnScroll() {
+	if(window.scrollY == window.scrollMaxY){
+		//console.log('test');
+		let end = start + count;
+		renderMoreListArticle(arrArticle.slice(start, end));
+	}
+}
 
 function main() {
 	getListArticle();
+
+	window.onscroll= windowOnScroll;
 }
 
 main();

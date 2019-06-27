@@ -1,0 +1,8 @@
+@media (max-width: 767px){
+	.media-body.name-cart {
+		display: none;
+	}
+	.col-md-8 {
+		padding: 0;
+	}
+}

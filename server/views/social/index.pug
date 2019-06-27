@@ -4,41 +4,51 @@ block content
   .container-fluid.gedf-wrapper
     .row
       .col-md-3.left
-        ul.list-group.ml-3
+        ul.list-group.ml-4.mb-3
           li.listview
             a.btn.btn-link.d-flex.align-items-center(href='/user/view')
-              img.rounded-circle.mr-1(width='25', src='https://picsum.photos/50/50', alt='...')
+              img.rounded-circle.mr-1(width='25', src=user.avatar, alt='...')
               span= user.fullname
+        ul.list-group.ml-4.mb-3
           li.listview.active
-            a.btn.btn-link.d-flex.align-items-center(href='/user/view')
-              img.rounded-circle.mr-1(width='25', src='https://picsum.photos/50/50', alt='...')
-              span= user.fullname
+            a.btn.btn-link.d-flex.align-items-center(href='#')
+              i.far.fa-newspaper.mr-1
+              span Newfeed
           li.listview
-            a.btn.btn-link.d-flex.align-items-center(href='/user/view')
-              img.rounded-circle.mr-1(width='25', src='https://picsum.photos/50/50', alt='...')
-              span= user.fullname
+            a.btn.btn-link.d-flex.align-items-center(href='#')
+              i.fab.fa-facebook-messenger.mr-1
+              span Messenger
+          li.listview
+            a.btn.btn-link.d-flex.align-items-center(href='#')
+              i.fas.fa-tv.mr-1
+              span Watch
+        ul.list-group.ml-4.mb-3
+          li.listview
+            a.btn.btn-link.d-flex.align-items-center(href='#')
+              i.fas.fa-users.mr-1
+              span Group
+        ul.list-group.ml-4.mb-3
+          li.listview
+            a.btn.btn-link.d-flex.align-items-center(href='#')
+              i.fas.fa-history.mr-1
+              span History
+
       .col-md-6.center
 
         // Post /////
       .col-md-3.right
-        .card.gedf-card
+        .card.gedf-card.mb-3
+          a(href='#')
+            img.card-img-top(src='https://scontent-sin6-2.xx.fbcdn.net/v/t45.1600-4/cp0/q90/spS444/c0.13.296.155a/p296x100/64974712_23843496036720466_5084724417804632064_n.png.jpg?_nc_cat=107&_nc_oc=AQkhQQKOQ9A_l5vE3u80SmudI7Ae3DapslaxEhtARG23rRNYeKKUIawkje4OmOm10tQ&_nc_ht=scontent-sin6-2.xx&oh=b781c68f026950cb9e4f2966cfdfd12c&oe=5D795F3F', alt='...')
           .card-body
-            h5.card-title Card title
-            h6.card-subtitle.mb-2.text-muted Card subtitle
-            p.card-text
-              | Some quick example text to build on the card title and make up the bulk of the
-              | card&apos;s content.
-            a.card-link(href='#') Card link
-            a.card-link(href='#') Another link
-        .card.gedf-card
+            h5.card-title Save 50% on 12 Months of SitePoint Premium!
+            p.card-text 3 days only! Get over $5000+ worth of the best tech books and courses for only $49!
+        .card.gedf-card.mb-3
+          a(href='#')
+            img.card-img-top(src='https://scontent-sin6-2.xx.fbcdn.net/v/t45.1600-4/cp0/q90/spS444/c0.0.284.159a/p160x160/61904972_23843467388150163_695048312629231616_n.png.jpg?_nc_cat=1&_nc_oc=AQk5M89el5nC3rrsoH9G5Ik5SuW41duSv3XU1sYeG8UVQ8xv1wXgh2LitbBmBvsJhvE&_nc_ht=scontent-sin6-2.xx&oh=4c126bb8517b505b6e4366e2cf8eda0d&oe=5DC0AC57', alt='...')
           .card-body
-            h5.card-title Card title
-            h6.card-subtitle.mb-2.text-muted Card subtitle
-            p.card-text
-              | Some quick example text to build on the card title and make up the bulk of the
-              | card&apos;s content.
-            a.card-link(href='#') Card link
-            a.card-link(href='#') Another link
+            h5.card-title CỔNG GAME UY TÍN TOP 1 THẾ GIỚI
+            p.card-text 🔥🔥 BIG CLUB - TOP 1 GAME QUỐC TẾ 🔰 Cổng game 5* đầu tiên ra mắt 🔰 Đăng ký ngay nhận #QUÀ.
 
   script(src='https://unpkg.com/axios/dist/axios.min.js')
   script(src='/js/social.js')
