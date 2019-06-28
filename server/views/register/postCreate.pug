@@ -22,6 +22,20 @@ block content
         small#emailHelp.form-text.text-muted We&apos;ll never share your email with anyone else.
         div(class=value ? 'valid-feedback' : 'invalid-feedback') Looks good!
       .form-group
+        label(for='birthday') Birthday
+        input#birthday.form-control(name='birthday', type='date')
+      .form-group
+        label(for='birthday') Gender
+        br
+        input(type='radio', name='gender', value='male', checked)
+        span Male
+        br
+        input(type='radio', name='gender', value='female')
+        span Female
+        br
+        input(type='radio', name='gender', value='other')
+        span Other
+      .form-group
         label(for='password') Password
         input#password.form-control(class=value.password ? 'is-valid' : 'is-invalid', name='password', type='password', placeholder='Password', value= value? value.password : "" required)
         div(class=value ? 'valid-feedback' : 'invalid-feedback') Looks good!

@@ -1,150 +1,37 @@
 extends ./layouts/common.pug
       
+block head
+  link(rel='stylesheet', href='/css/index.css')
+
 block content
-
-  header
-    #carouselExampleIndicators.carousel.slide(data-ride='carousel')
-      ol.carousel-indicators
-        li.active(data-target='#carouselExampleIndicators', data-slide-to='0')
-        li(data-target='#carouselExampleIndicators', data-slide-to='1')
-        li(data-target='#carouselExampleIndicators', data-slide-to='2')
-      .carousel-inner(role='listbox')
-        // Slide One - Set the background image for this slide in the line below
-        .carousel-item.active(style="background-image: url('https://3.bp.blogspot.com/-_7vaKiNZPXk/XCWoF-0xj7I/AAAAAAAAAMk/Bx7Ne5WLEvINHPDoG1jwY6rGO2d62pprwCKgBGAs/s1600/ux-design.jpeg');")
-          .carousel-caption.d-none.d-md-block
-            h2.display-4 First Slide
-            p.lead This is a description for the first slide.
-        // Slide Two - Set the background image for this slide in the line below
-        .carousel-item(style="background-image: url('https://4.bp.blogspot.com/-InDD3Hm_bhU/XB4_TK3TT7I/AAAAAAAAAJ4/r5tUeCOqq1MTchFh7D7pWdf582A4qYIIwCEwYBhgL/s1600/Businesswoman-working-at-a-computer-1280x720.jpg');")
-          .carousel-caption.d-none.d-md-block
-            h2.display-4 Second Slide
-            p.lead This is a description for the second slide.
-        // Slide Three - Set the background image for this slide in the line below
-        .carousel-item(style="background-image: url('https://1.bp.blogspot.com/-GWl5F8P4t-8/XB4_VV4VE5I/AAAAAAAAAKE/SmHRzas-LpMpDBoLn6otR9AznVsr6L7OgCEwYBhgL/s1600/t1larg.africa.cnn.jpg');")
-          .carousel-caption.d-none.d-md-block
-            h2.display-4 Third Slide
-            p.lead This is a description for the third slide.
-      a.carousel-control-prev(href='#carouselExampleIndicators', role='button', data-slide='prev')
-        span.carousel-control-prev-icon(aria-hidden='true')
-        span.sr-only Previous
-      a.carousel-control-next(href='#carouselExampleIndicators', role='button', data-slide='next')
-        span.carousel-control-next-icon(aria-hidden='true')
-        span.sr-only Next
-  // Page Content
-  section.main
-    .container.mt-4
-      h1.text-center.mb-4.p-4.text-secondary From The Blog
-      .row
-        .card-columns
-          .card.shadow.border-0
-            img.card-img-top(src='https://4.bp.blogspot.com/-InDD3Hm_bhU/XB4_TK3TT7I/AAAAAAAAAJ4/r5tUeCOqq1MTchFh7D7pWdf582A4qYIIwCEwYBhgL/s1600/Businesswoman-working-at-a-computer-1280x720.jpg', alt='Card image cap')
-            .card-body
-              h5.card-title Card title that wraps to a new line
-              p.card-text
-                | This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
-          .card.shadow.border-0.p-3
-            blockquote.blockquote.mb-0.card-body
-              p
-                | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.
-              footer.blockquote-footer
-                small.text-muted
-                  | Someone famous in 
-                  cite(title='Source Title') Source Title
-          .card.shadow.border-0
-            img.card-img-top(src='https://4.bp.blogspot.com/-InDD3Hm_bhU/XB4_TK3TT7I/AAAAAAAAAJ4/r5tUeCOqq1MTchFh7D7pWdf582A4qYIIwCEwYBhgL/s1600/Businesswoman-working-at-a-computer-1280x720.jpg', alt='Card image cap')
-            .card-body
-              h5.card-title Card title
-              p.card-text This card has supporting text below as a natural lead-in to additional content.
-              p.card-text
-                small.text-muted Last updated 3 mins ago
-          .card.shadow.border-0.bg-primary.text-white.text-center.p-3
-            blockquote.blockquote.mb-0
-              p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat.
-              footer.blockquote-footer
-                small
-                  | Someone famous in 
-                  cite(title='Source Title') Source Title
-          .card.shadow.border-0.text-center
-            .card-body
-              h5.card-title Card title
-              p.card-text This card has a regular title and short paragraphy of text below it.
-              p.card-text
-                small.text-muted Last updated 3 mins ago
-          .card.shadow.border-0
-            img.card-img(src='https://4.bp.blogspot.com/-InDD3Hm_bhU/XB4_TK3TT7I/AAAAAAAAAJ4/r5tUeCOqq1MTchFh7D7pWdf582A4qYIIwCEwYBhgL/s1600/Businesswoman-working-at-a-computer-1280x720.jpg', alt='Card image')
-          .card.shadow.border-0.p-3.text-right
-            blockquote.blockquote.mb-0
-              p
-                | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.
-              footer.blockquote-footer
-                small.text-muted
-                  | Someone famous in 
-                  cite(title='Source Title') Source Title
-          .card.shadow.border-0
-            .card-body
-              h5.card-title Card title
-              p.card-text
-                | This is another card with title and supporting text below. This card has some additional content to make it slightly taller overall.
-              p.card-text
-                small.text-muted Last updated 3 mins ago
-  // Header
-  header.bg-primary.text-center.py-5.mb-4
-    .container
-      h1.font-weight-light.text-white Meet the Team
-  // Page Content
-  .container
-    .row
-      // Team Member 1
-      .col-xl-3.col-md-6.mb-4
-        .card.border-0.shadow
-          img.card-img-top(src='https://source.unsplash.com/TMgQMXoglsM/500x350', alt='...')
-          .card-body.text-center
-            h5.card-title.mb-0 Team Member
-            .card-text.text-black-50 Web Developer
-      // Team Member 2
-      .col-xl-3.col-md-6.mb-4
-        .card.border-0.shadow
-          img.card-img-top(src='https://source.unsplash.com/9UVmlIb0wJU/500x350', alt='...')
-          .card-body.text-center
-            h5.card-title.mb-0 Team Member
-            .card-text.text-black-50 Web Developer
-      // Team Member 3
-      .col-xl-3.col-md-6.mb-4
-        .card.border-0.shadow
-          img.card-img-top(src='https://source.unsplash.com/sNut2MqSmds/500x350', alt='...')
-          .card-body.text-center
-            h5.card-title.mb-0 Team Member
-            .card-text.text-black-50 Web Developer
-      // Team Member 4
-      .col-xl-3.col-md-6.mb-4
-        .card.border-0.shadow
-          img.card-img-top(src='https://source.unsplash.com/ZI6p3i9SbVU/500x350', alt='...')
-          .card-body.text-center
-            h5.card-title.mb-0 Team Member
-            .card-text.text-black-50 Web Developer
-    // /.row
-  .container
-    .row
-      .col-md-8
-        blockquote.blockquote.text-center.mb-0
-          svg.lnr.text-muted.quote-icon.pull-left
-            use(xlink:href='#lnr-heart')
-          p.mb-0 Keep in touch with me for more Theme right here!
-          footer.blockquote-footer
-            | Luckmoshy Designing
-            cite(title='Source Title') Webublog @
-      .col-md-4
-        a.flot-right.btn.btn-white.border-0.rounded.shadow.post-pager-link.p-0.next.ml-4(href='')
-          span.d-flex.h-100
-            span.p-3.d-flex.flex-column.justify-content-center.w-100
-              .indicator.mb-1.text-uppercase.text-muted
-                | webublog
-                i.fa.fa-bars.ml-2
-              p.f-13 See next awesome themes
-            span.bg-primary.p-2.d-flex.align-items-center.text-white
-              i.fa.fa-arrow-circle-right
-
-
+  header(style='| background: #ADA996; background: -webkit-linear-gradient(to right, #EAEAEA, #DBDBDB, #F2F2F2, #ADA996); background: linear-gradient(to right, #EAEAEA, #DBDBDB, #F2F2F2, #ADA996); ')
+    .container.text-center
+      h1 Welcome to ShopFace
+    section#about
+      .container
+        .row
+          .col-lg-8.mx-auto
+            h2 About this page
+            p.lead An online shopping site combined with social networking, the website will give you a new experience on the web world
+    section#services(style='background: #C6FFDD; background: -webkit-linear-gradient(to right, #f7797d, #FBD786, #C6FFDD); background: linear-gradient(to right, #f7797d, #FBD786, #C6FFDD);')
+      .container
+        .row
+          .col-lg-8.mx-auto
+            h2 Services we offer
+            ul.lead
+              li Shopping Page
+              li Social network
+              li List Friend
+              li List User
+    section#contact
+      .container
+        .row
+          .col-lg-8.mx-auto
+            h2 Contact and support website feature development to my 
+            ul.lead
+              li Email: barrydevp@gmail.com or daominhhailaocai@gmail.com
+              li
+                a.btn.btn-link(href='https://www.facebook.com/profile.php?id=100009731830079') Facebook: Minh Hải
 
   script(src='https://unpkg.com/axios/dist/axios.min.js')
   //script(src='/js/index.js')

@@ -5,6 +5,7 @@ const userModel = require('../../api/models/user.model');
 module.exports.index = async (req, res) => {
   const quantity = req.signedCookies.quantity;
   const userId = req.signedCookies.userId;
+  let userLogin = res.locals.user;
   var friends = [];
   var maxpage = 0;
   var page = 0;
@@ -12,9 +13,9 @@ module.exports.index = async (req, res) => {
   let countmax = 0;
 
   try {
-    let userDoc = await userModel.findOne({ _id: userId }).populate('friends');
-    if(userDoc) {
-      friends = userDoc.toObject().friends;
+    //let userDoc = await userModel.findOne({ _id: userId }).populate('friends');
+    if(userLogin) {
+      friends = Array.from(userLogin.friends);
       //console.log(userDoc);
       //console.log(friends);
     }

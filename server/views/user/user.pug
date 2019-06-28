@@ -18,6 +18,8 @@ block content
 						button#button-addon2.btn.btn-outline-secondary(type='submit') Button
 			.list-group
 				each user in users
-					a.list-group-item.list-group-item-action(href='/user/' + user.id)
-							span= user.username
+					if(!(String(user._id) === String(userLogin._id)))
+						a.list-group-item.list-group-item-action(href='/user/' + user.id)
+							img.border.rounded-0.mr-2(src=user.avatar, width='50px')
+							span= user.fullname
 

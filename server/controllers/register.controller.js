@@ -12,6 +12,7 @@ module.exports.create = (req, res) => {
 module.exports.postCreate = async (req, res) => {
 	//req.body.id = shortid.generate();
 	req.body.password = md5(req.body.password);
+	req.body.birthday = new Date(req.body.birthday);
 	//req.body.avatar = '/' + req.file.path.split('/').slice(1).join('/');
 	try {
 		await userModel.create(req.body);

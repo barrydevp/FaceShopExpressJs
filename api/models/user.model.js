@@ -17,7 +17,14 @@ const userSchema = new Schema({
     required: true,
   },
   fullname: String,
-  birthday: Date,
+  birthday: {
+    type: Date,
+    default: Date.now()
+  },
+  gender: {
+    type: String,
+    default: 'Male'
+  },
   email: {
     type: String,
     required: true,
@@ -26,7 +33,10 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
-  avatar: String,
+  avatar: {
+    type: String,
+    default: 'https://i.stack.imgur.com/l60Hf.png'
+  },
   friends: {
     type: [{
       type: Schema.Types.ObjectId, 

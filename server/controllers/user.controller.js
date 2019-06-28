@@ -30,8 +30,8 @@ module.exports.search = async (req, res) => {
 		console.error(err);
 	}
 
-	var username = req.query.username.toUpperCase();
-	var matchedUsers = users.filter(user => user.username.toUpperCase().indexOf(username) !== -1);
+	var fullname = req.query.fullname.toUpperCase();
+	var matchedUsers = users.filter(user => user.fullname.toUpperCase().indexOf(fullname) !== -1);
 	res.render('user/user', {
 		userLogin: res.locals.user,
 		quantity: res.locals.quantity,

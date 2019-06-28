@@ -17,6 +17,20 @@ block content
         input#email.form-control(name='email', type='email', aria-describedby='emailHelp', placeholder='Enter email')
         small#emailHelp.form-text.text-muted We&apos;ll never share your email with anyone else.
       .form-group
+        label(for='birthday') Birthday
+        input#birthday.form-control(name='birthday', type='date')
+      .form-group
+        label(for='birthday') Gender
+        br
+        input(type='radio', name='gender', value='male', checked)
+        span Male
+        br
+        input(type='radio', name='gender', value='female')
+        span Female
+        br
+        input(type='radio', name='gender', value='other')
+        span Other
+      .form-group
         label(for='password') Password
         input#password.form-control(name='password', type='password', placeholder='Password', required)
       .form-group

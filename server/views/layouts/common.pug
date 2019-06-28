@@ -54,10 +54,10 @@ html
                 a.dropdown-item(href='#') Graphic Design
               li
                 a.dropdown-item(href='#') Digital Marketing
-        form.navbar-form.form-inline
+        form.navbar-form.form-inline(action="/user/search", method="GET")
           .input-group.search-box
-            input#search.form-control(type='text', placeholder='Search by Name')
-            span.input-group-addon
+            input.form-control(name='fullname', type='text', placeholder='Search by Name')
+            button.btn.btn-link.input-group-addon(type='submit')
               i.fas.fa-search
         ul.nav.navbar-nav.navbar-right.ml-auto
           if(userLogin)
@@ -161,10 +161,34 @@ html
 
     script(src='https://unpkg.com/axios/dist/axios.min.js')
     script(src='/js/common.js')
+    script(src='https://code.jquery.com/jquery-3.3.1.slim.min.js', integrity='sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo', crossorigin='anonymous')  
 
     block content
 
+    footer.container
+      hr
+      .footer-options
+        ul
+          li
+            a(href='#') Mobile
+          li
+            a(href='#') Find Friends
+          li
+            a(href='#') Badges
+          li
+            a(href='#') People
+          li
+            a(href='#') Pages
+          li
+            a(href='#') Places
+          li
+            a(href='#') Games
+          li
+            a(href='#') Locations
+          li
+            a(href='#') About
+      div(style='clear:both')
+      small.copyrights  &copy; Copyrights reserved 2019 (Barry-daominhhai)
     block script
       script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js', integrity='sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1', crossorigin='anonymous')
-      script(src='https://code.jquery.com/jquery-3.3.1.slim.min.js', integrity='sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo', crossorigin='anonymous')
       script(src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js', integrity='sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM', crossorigin='anonymous')

@@ -32,7 +32,7 @@ module.exports.getListFriend = async (req, res, next) => {
   const userId = req.signedCookies.userId;
 
   try {
-    const userDoc = await userModel.findOne({ _id : userId }).populate('friends');
+    const userDoc = await userModel.findOne({ _id : userId }).populate('friends', 'fullname avatar email birthday friends');
     const friends = userDoc.toObject().friends;
     //console.log(friends);
 
