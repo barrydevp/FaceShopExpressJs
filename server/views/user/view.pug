@@ -52,6 +52,10 @@ block content
                     button.btn.btn-light.mr-1 
                       i.fas.fa-external-link-square-alt.mr-1
                       span Follow
+                  else
+                    button.btn.btn-light.mr-3(onclick='unFriend()')
+                      i.fas.fa-user-minus.mr-1
+                      span Unfriend
               button.btn.btn-light
                 i.fab.fa-facebook-messenger.mr-1
                 span Message
@@ -69,8 +73,22 @@ block content
                   a(href='#') Photos
     .row
       .col-md-3.left
+        .card
+          .card-header
+            i.fas.fa-user-friends.m-2(style='color: #f5436c;')
+            span.font-weight-bold.m-2(style='font-size: 18px;') Friends
+            span.text-muted(style='font-size: 15px;')= user.friends.length
+          .card-body
+            .row.p-2.friend
+              each friend in user.friends
+                if(!(String(userLogin._id) === String(friend._id)))
+                  a(href='/user/' + friend._id).col-md-4.p-0
+                    div.rounded-0.friend(style='background-image: url('+ friend.avatar + ');')
+                      div.overlay
+                      span= friend.fullname
+                    
       .col-md-6.center
-
+        
       .col-md-3.right
 
 

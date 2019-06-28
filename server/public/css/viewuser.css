@@ -1,3 +1,21 @@
+.left .row.friend div {
+  position: relative;
+  background-size: cover;
+  width: 75px;
+  height: 75px;
+}
+
+.left .row.friend .overlay {
+  background: linear-gradient(0deg, rgba(92,92,92,1) 0%, rgba(255,255,255,0) 48%);
+}
+
+.left .row.friend span {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  color: #fff;
+}
+
 .fb-profile-block {
   margin: auto;
   position: relative;

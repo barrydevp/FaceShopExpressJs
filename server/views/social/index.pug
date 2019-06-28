@@ -6,7 +6,7 @@ block content
       .col-md-3.left
         ul.list-group.ml-4.mb-3
           li.listview
-            a.btn.btn-link.d-flex.align-items-center(href='/user/view')
+            a.btn.btn-link.d-flex.align-items-center(href='/user/view' + userLogin._id)
               img.rounded-circle.mr-1(width='25px', src=user.avatar, alt='...')
               span= user.fullname
         ul.list-group.ml-4.mb-3
