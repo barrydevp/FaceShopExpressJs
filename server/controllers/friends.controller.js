@@ -15,6 +15,8 @@ module.exports.index = async (req, res) => {
     let userDoc = await userModel.findOne({ _id: userId }).populate('friends');
     if(userDoc) {
       friends = userDoc.toObject().friends;
+      //console.log(userDoc);
+      //console.log(friends);
     }
     maxpage = Math.ceil(friends.length / 5);
     page = parseInt(req.query.page) || 1;

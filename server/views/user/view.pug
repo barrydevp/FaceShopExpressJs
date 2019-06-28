@@ -1,16 +1,78 @@
 extends ../layouts/common.pug
 
-block content
-	.jumbotron
-		h1.display-4 View
+block head
+  link(rel='stylesheet', href='/css/viewuser.css')
 
-	.container
-		.shadow-sm.p-3.mb-5.bg-white.rounded(style='width: 20rem')
-			.card(style='width: 18rem;')
-			img.card-img-top(style='height: 180px; width: 180px; display: block;', src=user.avatar, data-holder-rendered='true')
-			.card-body
-				h5.card-title User Information
-				p.card-text ID: #{user.id}
-				p.card-text Name: #{user.username}
-				p.card-text Email: #{user.email}
-				a.btn.btn-primary(href='/user') Back to User
+block content
+  //- .jumbotron
+  //-   h1.display-4 View
+
+  //- .container
+  //-   .shadow-sm.p-3.mb-5.bg-white.rounded(style='width: 20rem')
+  //-     .card(style='width: 18rem;')
+  //-     img.card-img-top(style='height: 180px; width: 180px; display: block;', src=user.avatar, data-holder-rendered='true')
+  //-     .card-body
+  //-       h5.card-title User Information
+  //-       p.card-text ID: #{user.id}
+  //-       p.card-text Name: #{user.username}
+  //-       p.card-text Email: #{user.email}
+  //-       a.btn.btn-primary(href='/user') Back to User
+  .container
+    .row
+      .col-md-12.mb-3
+        .fb-profile-block
+          .fb-profile-block-thumb.cover-container
+          .profile-img
+            button.btn.btn-link
+              img.rounded-circle(width='70px', src=user.avatar, alt='', title='')
+          .profile-name
+            h2(id=user._id)= user.fullname
+          .profiel-request
+            if(!(String(userLogin._id) === String(user._id)))
+              if(isReqFr)
+                button.btn.btn-light.mr-3(onclick='acceptRequestFriend()')
+                  i.fas.fa-user-plus.mr-1
+                  span Accept this person
+                button.btn.btn-light.mr-1 
+                  i.fas.fa-external-link-square-alt.mr-1
+                  span Follow
+              else
+                if(isReqUser)
+                  button.btn.btn-light.mr-3(onclick='unAddRequestFriend()')
+                    i.fas.fa-user-plus.mr-1
+                    span Un add this person
+                  button.btn.btn-light.mr-1 
+                    i.fas.fa-external-link-square-alt.mr-1
+                    span Follow
+                else
+                  if(!isFriend)
+                    button.btn.btn-light.mr-3(onclick='addRequestFriend()')
+                      i.fas.fa-user-plus.mr-1
+                      span Add friend
+                    button.btn.btn-light.mr-1 
+                      i.fas.fa-external-link-square-alt.mr-1
+                      span Follow
+              button.btn.btn-light
+                i.fab.fa-facebook-messenger.mr-1
+                span Message
+              
+          .fb-profile-block-menu
+            .block-menu
+              ul
+                li
+                  a(href='#') Timeline
+                li
+                  a(href='#') about
+                li
+                  a(href='#') Friends
+                li
+                  a(href='#') Photos
+    .row
+      .col-md-3.left
+      .col-md-6.center
+
+      .col-md-3.right
+
+
+  
+  script(src='/js/viewuser.js')

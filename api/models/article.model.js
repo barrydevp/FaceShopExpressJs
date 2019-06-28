@@ -17,10 +17,10 @@ const articleSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'User'
   },
-  title: {
-    type: String,
-    default: ''
-  },
+  // title: {
+  //   type: String,
+  //   default: ''
+  // },
   body: {
     type: String,
     default: 'None!'

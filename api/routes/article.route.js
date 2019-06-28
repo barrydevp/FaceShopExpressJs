@@ -8,6 +8,7 @@ var router = express.Router();
 //route get data
 router.get('/article', controller.getArticle);
 router.get('/article/:articleId', controller.getArticleById);
+router.get('/article/user/:userId', controller.getArticleByAuthor);
 router.get('/comment', controller.getComment);
 router.get('/comment/:commnetId', controller.getCommentById);
 

@@ -63,25 +63,36 @@ html
           if(userLogin)
             li
               li.nav-item
-                a.nav-link.messages(href='/cart/listcart')
+                a.nav-link.listcart(href='/cart/listcart')
                   i.fas.fa-shopping-cart
                   span.cart-count.badge= quantity
               li.nav-item 
                 a.nav-link.notifications(href='#')
                   i.far.fa-bell
                   span.badge 1
-              li.nav-item
-                a.nav-link.messages(href='#')
-                  i.far.fa-envelope
-                  span.badge 10
+              li.nav-item.dropdown
+                button.btn.btn-link.nav-link.dropdown-toggle.user-action.friendsrequest(data-toggle='dropdown')
+                  i.fas.fa-user-friends
+                  span.count-reqfr.badge=userLogin.request.friends.length
+                div.friendrequest.dropdown-menu.shadow.mb-5.bg-white.rounded(aria-labelledby='dropdownMenuLink')
+                  h5.pl-2 Request Friends
+                  ul.scrollable-menu.p-1
+                    each requestfriend in userLogin.request.friends
+                      li.d-flex.justify-content-between.text-truncate.border-bottom.border-top.p-2(class='id-' + requestfriend._id)
+                        div
+                          img.rounded-circle.mr-2(src=requestfriend.avatar, width='30px')
+                          a.btn.btn-link.p-0(href='/user/' + requestfriend._id)=requestfriend.fullname
+                        div.button
+                          button.btn.btn-primary.mr-2(id=requestfriend._id, onclick='acceptFriend.bind(this)()') Accept
+                          button.btn.btn-danger(id=requestfriend._id, onclick='deniedFriend.bind(this)()') Denied
             li.nav-item.dropdown
               button.btn.btn-link.nav-link.dropdown-toggle.user-action(data-toggle='dropdown')
-                img.user-avatar.avatar(src=userLogin.avatar, alt='Avatar')
-                span.user-fullname= userLogin.fullname + ' '
+                img.userLogin-avatar.avatar(src=userLogin.avatar, alt='Avatar')
+                span.userLogin-fullname= userLogin.fullname + ' '
                 i.fas.fa-caret-down
               ul.dropdown-menu
                 li
-                  a.userid.dropdown-item(id=user._id, href='/user/' + user._id)
+                  a.userLoginId.dropdown-item(id=userLogin._id, href='/user/' + userLogin._id)
                     i.far.fa-user
                     span Profile
                 li
@@ -100,7 +111,7 @@ html
           else
             //- ul.nav.navbar-nav.navbar-right.ml-auto
             li.nav-item
-                a.nav-link.messages(href='/cart/listcart')
+                a.nav-link.listcart(href='/cart/listcart')
                   i.fas.fa-shopping-cart
                   span.cart-count.badge= quantity
             li.nav-item
@@ -148,6 +159,7 @@ html
                         a(href='#') Terms &amp; Conditions
                     input.btn.btn-primary.btn-block(type='submit', value='Sign up')
 
+    script(src='https://unpkg.com/axios/dist/axios.min.js')
     script(src='/js/common.js')
 
     block content

@@ -19,12 +19,16 @@ module.exports.getArticle = async (req, res, next) => {
     });
     if(articleDoc) {
       data = Array.from(articleDoc);
+      res.json(data);
+    } else {
+      res.send(400);
     }
   } catch (err) {
     console.error(err);
+    res.send(400);
   }
 
-  res.json(data);
+  //res.json(data);
 }
 
 module.exports.getComment = async (req, res, next) => {
@@ -35,11 +39,13 @@ module.exports.getComment = async (req, res, next) => {
     if (commentDoc) {
       data = Array.from(commnetDoc);
     }
+    res.json(data);
   } catch (err) {
     console.error(err);
+    res.send(400);
   }
 
-  res.json(data);
+  //res.json(data);
 }
 
 module.exports.getArticleById = async (req, res, next) => {
@@ -57,12 +63,44 @@ module.exports.getArticleById = async (req, res, next) => {
           path: 'author',
         }
       });
+    res.json(data);
   } catch (err) {
     console.error(err);
+    res.send(400);
   }
 
-  res.json(data);
+  //res.json(data);
 
+}
+
+module.exports.getArticleByAuthor = async (req, res, next) => {
+  let data = [];
+  const userId = req.params.userId;
+  //console.log(userId);
+  try {
+    articleDoc = await articleModel.find({ author: userId }).populate('author')
+      .populate({
+        path: 'comments',
+        options: {
+          sort: { 'date': -1 },
+        },
+        populate: {
+          path: 'author',
+        }
+      });
+    if (articleDoc) {
+      data = Array.from(articleDoc);
+      //console.log(data);
+      res.json(data);
+    } else {
+      res.send(400);
+    }
+  } catch (err) {
+    console.error(err);
+    res.send(400);
+  }
+
+  //res.json(data);
 }
 
 module.exports.getCommentById = async (req, res, next) => {

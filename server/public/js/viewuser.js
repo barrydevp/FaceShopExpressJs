@@ -1,13 +1,74 @@
 let arrArticle = [];
 let start = 0;
 let count = 4;
+let user = {
+	id: document.querySelector('.profile-name h2').id
+}
+//console.log(user.id);
+//console.log(userLogin.id);
+// function renderRequest() {
+// 	let divReq = document.querySelector('.profiel-request');
+// 	if(!(userLogin.id === user.id)) {
+// 		if()
+// 	}
+// }
+
+async function addRequestFriend() {
+	const friendId = user.id;
+
+	try {
+		let url = '/api/users/addreq/friend/' + friendId;
+		//console.log(url);
+		await axios.patch(url);
+		let divReq = document.querySelector('.profiel-request');
+		divReq.innerHTML = '<button class="btn btn-light mr-3" onclick="unAddRequestFriend()"><i class="fas fa-user-plus mr-1"></i><span>Un add this person</span></button><button class="btn btn-light mr-1"> <i class="fas fa-external-link-square-alt mr-1"></i><span>Follow</span></button><button class="btn btn-light"><i class="fab fa-facebook-messenger mr-1"></i><span>Message</span></button>';
+	} catch(err) {
+		console.error(err);
+	}
+}
+
+async function unAddRequestFriend() {
+	const friendId = user.id;
+	const userId = userLogin.id;
+
+	try {
+		let url = '/api/users/delreq/friend/' + userId + '/' + friendId;
+		//console.log(url);
+		await axios.patch(url);
+		let divReq = document.querySelector('.profiel-request');
+		divReq.innerHTML = '<button class="btn btn-light mr-3" onclick="addRequestFriend()"><i class="fas fa-user-plus mr-1"></i><span>Add friend</span></button><button class="btn btn-light mr-1"> <i class="fas fa-external-link-square-alt mr-1"></i><span>Follow</span></button><button class="btn btn-light"><i class="fab fa-facebook-messenger mr-1"></i><span>Message</span></button>';
+	} catch(err) {
+		console.error(err);
+	}
+}
+
+async function acceptRequestFriend() {
+	const friendId = user.id;
+	const userId = userLogin.id;
+
+	try {
+		let url = '/api/users/addfr/' + friendId;
+		//console.log(url);
+		await axios.patch(url);
+		let liReq = document.querySelector('li.id-' + friendId);
+		let reqCount = document.querySelector('span.count-reqfr');
+		reqCount.textContent = parseInt(reqCount.textContent) - 1;
+		liReq.remove();
+		let divReq = document.querySelector('.profiel-request');
+		divReq.innerHTML = '<button class="btn btn-light mr-1"> <i class="fas fa-external-link-square-alt mr-1"></i><span>Follow</span></button><button class="btn btn-light"><i class="fab fa-facebook-messenger mr-1"></i><span>Message</span></button>';
+	} catch(err) {
+		console.error(err);
+	}
+} 
 
 async function getListArticle() {
 	try {
-		let res = await axios.get('/api/articles/article');
+		url = '/api/articles/article/user/' + user.id;
+		let res = await axios.get(url);
 		arrArticle = res.data;
 		//console.log(res);
-	} catch(err) {
+	}
+	 catch(err) {
 		console.error(err);
 	}
 
@@ -20,7 +81,8 @@ async function getListArticle() {
 
 function renderArticle(arrArticle) {
 	let center = document.querySelector('.col-md-6.center');
-	center.innerHTML = '<div class="post card gedf-card mb-4"><div class="card-header"><ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist"><li class="nav-item"><a class="nav-link active" id="posts-tab" data-toggle="tab" href="#posts" role="tab" aria-controls="posts" aria-selected="true">Make a publication</a></li><li class="nav-item"><a class="nav-link" id="images-tab" data-toggle="tab" role="tab" aria-controls="images" aria-selected="false" href="#images">Images</a></li></ul></div><div class="card-body"><div class="tab-content" id="myTabContent"><div class="tab-pane fade show active" id="posts" role="tabpanel" aria-labelledby="posts-tab"><div class="form-group"><textarea class="form-control" id="message" rows="3" placeholder="What are you thinking?"></textarea></div></div><div class="tab-pane fade" id="images" role="tabpanel" aria-labelledby="images-tab"><div class="form-group"><div class="custom-file"><div class="custom-file-input" id="customFile" type="file">Image</div><label class="custom-file-label" for="customFile">Upload image</label></div></div><div class="py-4"></div></div></div><div class="btn-toolbar justify-content-between"><div class="btn-group"><button class="post-article font-weight-bold btn btn-primary" onclick="postArticle.bind(this)()">Share</button></div><div class="btn-group"><button class="btn btn-link dropdown-toggle" id="btnGroupDrop1" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-globe"></i></button><div class="dropdown-menu dropdown-menu-right" aria-labelledby="btnGroupDrop1"><a class="dropdown-item" href="#"><i class="fa fa-globe"></i> Public</a><a class="dropdown-item" href="#"><i class="fa fa-users"></i> Friends</a><a class="dropdown-item" href="#"><i class="fa fa-user"></i> Just me</a></div></div></div></div></div>';
+	if(userLogin.id === user.id)
+		center.innerHTML = '<div class="post card gedf-card mb-4"><div class="card-header"><ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist"><li class="nav-item"><a class="nav-link active" id="posts-tab" data-toggle="tab" href="#posts" role="tab" aria-controls="posts" aria-selected="true">Make a publication</a></li><li class="nav-item"><a class="nav-link" id="images-tab" data-toggle="tab" role="tab" aria-controls="images" aria-selected="false" href="#images">Images</a></li></ul></div><div class="card-body"><div class="tab-content" id="myTabContent"><div class="tab-pane fade show active" id="posts" role="tabpanel" aria-labelledby="posts-tab"><div class="form-group"><textarea class="form-control" id="message" rows="3" placeholder="What are you thinking?"></textarea></div></div><div class="tab-pane fade" id="images" role="tabpanel" aria-labelledby="images-tab"><div class="form-group"><div class="custom-file"><div class="custom-file-input" id="customFile" type="file">Image</div><label class="custom-file-label" for="customFile">Upload image</label></div></div><div class="py-4"></div></div></div><div class="btn-toolbar justify-content-between"><div class="btn-group"><button class="post-article font-weight-bold btn btn-primary" onclick="postArticle.bind(this)()">Share</button></div><div class="btn-group"><button class="btn btn-link dropdown-toggle" id="btnGroupDrop1" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-globe"></i></button><div class="dropdown-menu dropdown-menu-right" aria-labelledby="btnGroupDrop1"><a class="dropdown-item" href="#"><i class="fa fa-globe"></i> Public</a><a class="dropdown-item" href="#"><i class="fa fa-users"></i> Friends</a><a class="dropdown-item" href="#"><i class="fa fa-user"></i> Just me</a></div></div></div></div></div>';
 
 	for(let article of arrArticle) {
 		center.innerHTML += createCardArticleText(article);
@@ -192,7 +254,7 @@ function editArticle() {
 
 async function saveArticle(divCardBody, newDivCardBody) {
 	const articleId = this.id;
-	console.log(articleId);
+	//console.log(articleId);
 	let query = '.id-' + articleId + ' textarea.form-control';
 	// let inputComment = document.querySelector(query);
 	let data = {

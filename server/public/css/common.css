@@ -248,19 +248,34 @@ img.avatar {
 	min-height: 18px;
 	top: 5px;
 }
-.navbar ul.nav li a.notifications, .navbar ul.nav li a.messages {
+.navbar ul.nav li a.notifications, .navbar ul.nav li button.friendsrequest .navbar ul.nav li a.listcart {
 	position: relative;
 	margin-right: 10px;
 }
-.navbar ul.nav li a.messages {
+.navbar ul.nav li a.listcart {
+	margin-right: 20px
+}
+.navbar ul.nav li button.friendsrequest {
 	margin-right: 20px;
 }
-.navbar a.notifications .badge {
-	margin-left: -8px;
-}
-.navbar a.messages .badge {
-	margin-left: -4px;
+
+.navbar button.friendsrequest .badge, .navbar a.notifications .badge, .navbar a.listcart .badge {
+	margin-top: 2px;
+	margin-left: -6px;
 }	
+
+.friendrequest.dropdown-menu {
+	left: -280px;
+}
+
+.scrollable-menu {
+	width: 400px;
+  height: auto;
+  max-height: 400px;
+  //overflow-x: hidden;
+  overflow-y: scroll;
+}
+
 .navbar .active a, .navbar .active a:hover, .navbar .active a:focus {
 	background: transparent !important;
 }

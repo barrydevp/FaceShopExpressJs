@@ -41,17 +41,36 @@ module.exports.search = async (req, res) => {
 
 module.exports.view = async (req, res) => {
 	var id = req.params.id;
-
-	var user;
+	let userLogin = res.locals.user;
+	let isFriend = true;
+	let isReqFr = true;
+	let user;
 	try {
-		user = await userModel.findOne({_id: id});
+		userDoc = await userModel.findOne({_id: id}).populate('friends');
+		user = userDoc.toObject();
+		//console.log(userLogin.friends);
+		isFriend = Array.from(userLogin.friends).find((item) =>  {
+			//console.log(user._id);
+			//console.log(item._id);
+			return String(item._id) === String(user._id);
+		});
+
+		isReqFr = Array.from(userLogin.request.friends).find((item) => {
+			return String(item._id) === String(user._id);
+		});
+		isReqUser = Array.from(user.request.friends).find((item) => {
+			return String(item._id) === String(userLogin._id);
+		});
 	} catch (err) {
 		console.error(err);
 	}
 
 	res.render('user/view', {
-		userLogin: res.locals.user,
+		userLogin: userLogin,
 		user: user,
+		isFriend: isFriend,
+		isReqFr: isReqFr,
+		isReqUser: isReqUser,
 		quantity: res.locals.quantity,
 	});
 };
