@@ -12,6 +12,9 @@ module.exports.create = (req, res) => {
 module.exports.postCreate = async (req, res) => {
 	//req.body.id = shortid.generate();
 	req.body.password = md5(req.body.password);
+	if(req.body.fullname === ' ' || !req.body.fullname) {
+		req.body.fullname = 'No Name';
+	}
 	if(req.body.birthday) {
 		req.body.birthday = new Date(req.body.birthday);
 	}

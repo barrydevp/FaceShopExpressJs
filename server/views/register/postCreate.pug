@@ -41,7 +41,7 @@ block content
         div(class=value ? 'valid-feedback' : 'invalid-feedback') Looks good!
       .form-group
         label(for='username') Full name
-        input#username.form-control(name='fullname', type='text', aria-describedby='userHelp', placeholder='Enter fullname')
+        input#username.form-control(name='fullname', type='text', aria-describedby='userHelp', placeholder='Enter fullname', required)
       .form-group
         label(for='avatar') Avatar
         .custom-file
