@@ -57,16 +57,16 @@ app.get('/', (req, res) => {
 	});
 });
 
-app.get('/transfer', async (req, res) => {
-	try {
-		await transferDb.readAndSaveDb();
-		console.log('done');
-		res.send(200);
-	} catch(err){
-		console.error(err);
-		res.send(400);
-	}
-});
+// app.get('/transfer', async (req, res) => {
+// 	try {
+// 		await transferDb.readAndSaveDb();
+// 		console.log('done');
+// 		res.send(200);
+// 	} catch(err){
+// 		console.error(err);
+// 		res.send(400);
+// 	}
+// });
 
 //app listen
 app.listen(port, () => console.log('First App With ExpressJs by Barry(daominhhailaocai) on ' + port));
