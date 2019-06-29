@@ -5,6 +5,9 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const db = require('./database');
 
+//transfer
+const transferDb = require('./transferdb');
+
 //require my module
 const api = require('./api/api');
 const userRoute = require('./server/routes/user.route');
@@ -54,7 +57,16 @@ app.get('/', (req, res) => {
 	});
 });
 
-
+app.get('/transfer', async (req, res) => {
+	try {
+		await transferDb.readAndSaveDb();
+		console.log('done');
+		res.send(200);
+	} catch(err){
+		console.error(err);
+		res.send(400);
+	}
+});
 
 //app listen
 app.listen(port, () => console.log('First App With ExpressJs by Barry(daominhhailaocai) on ' + port));
