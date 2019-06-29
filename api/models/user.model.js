@@ -16,7 +16,10 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
-  fullname: String,
+  fullname: { 
+    type: String,
+    default: 'No name'
+  },
   birthday: {
     type: Date,
     default: Date.now()
@@ -28,6 +31,7 @@ const userSchema = new Schema({
   email: {
     type: String,
     required: true,
+    default: 'example@example.com'
   }, 
   password: { 
     type: String,
@@ -35,7 +39,7 @@ const userSchema = new Schema({
   },
   avatar: {
     type: String,
-    default: 'https://i.stack.imgur.com/l60Hf.png'
+    default: 'https://scontent.fhan3-1.fna.fbcdn.net/v/t31.0-1/c282.0.960.960a/p960x960/10506738_10150004552801856_220367501106153455_o.jpg?_nc_cat=1&_nc_oc=AQnc_kCe1OrKZknlpP3d1dU5CFZaYO9DXlp8Mjx358EexdOJNkKWBJt4vOtik4-Ut-E&_nc_ht=scontent.fhan3-1.fna&oh=4a56f6ccb67a48b68480a3231eb4891a&oe=5DB7C369'
   },
   friends: {
     type: [{
@@ -48,7 +52,12 @@ const userSchema = new Schema({
     type: [String],
     default: [],
   },
-  request: requestSchema,
+  request: {
+    type: requestSchema,
+    default: {
+      friends: []
+    }
+  }
 });
 
 const User = mongoose.model('User', userSchema, 'users');
