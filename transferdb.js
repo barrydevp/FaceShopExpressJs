@@ -45,7 +45,7 @@ async function readAndSaveDb() {
   }
 }
 
-module.exports.transferDb = readAndSaveDb;
+module.exports.readAndSaveDb = readAndSaveDb;
 // sessionModel.deleteMany().then((err, data) => {
 //   if(err) console.error(err);
 //   else console.log(data);
