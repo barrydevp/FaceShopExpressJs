@@ -29,7 +29,7 @@ module.exports = async (req, res, next) => {
     }
   }
 
-  res.locals.quantity = parseInt(req.signedCookies.quantity);
+  res.locals.quantity = parseInt(req.signedCookies.quantity) || 0;
 
   next();
 }
