@@ -39,7 +39,7 @@ module.exports.search = async (req, res) => {
 	});
 };
 
-module.exports.view = async (req, res) => {
+module.exports.view = async (req, res, next) => {
 	var id = req.params.id;
 	let userLogin = res.locals.user;
 	let isFriend = true;
@@ -47,6 +47,7 @@ module.exports.view = async (req, res) => {
 	let user;
 	try {
 		userDoc = await userModel.findOne({_id: id}).populate('friends');
+
 		user = userDoc.toObject();
 		//console.log(userLogin.friends);
 		isFriend = Array.from(userLogin.friends).find((item) =>  {
@@ -61,16 +62,26 @@ module.exports.view = async (req, res) => {
 		isReqUser = Array.from(user.request.friends).find((item) => {
 			return String(item._id) === String(userLogin._id);
 		});
+		res.render('user/view', {
+			userLogin: userLogin,
+			user: user,
+			isFriend: isFriend,
+			isReqFr: isReqFr,
+			isReqUser: isReqUser,
+			quantity: res.locals.quantity,
+		});
 	} catch (err) {
 		console.error(err);
+		next();
 	}
 
-	res.render('user/view', {
-		userLogin: userLogin,
-		user: user,
-		isFriend: isFriend,
-		isReqFr: isReqFr,
-		isReqUser: isReqUser,
-		quantity: res.locals.quantity,
-	});
+	
+	// res.render('user/view', {
+	// 	userLogin: userLogin,
+	// 	user: user,
+	// 	isFriend: isFriend,
+	// 	isReqFr: isReqFr,
+	// 	isReqUser: isReqUser,
+	// 	quantity: res.locals.quantity,
+	// });
 };
