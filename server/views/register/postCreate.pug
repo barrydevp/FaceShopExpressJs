@@ -13,14 +13,12 @@ block content
     form(action='/register', method='POST')
       .form-group
         label(for='username') User name
-        input#username.form-control(class=value.username ? 'is-valid' : 'is-invalid', name='username', type='text', aria-describedby='userHelp', placeholder='Enter username', value= value ?value.username : "" required)
-        small#userHelp.form-text.text-muted Need to login.
-        div(class=value ? 'valid-feedback' : 'invalid-feedback') Looks good!
+        input#username.form-control(name='username', type='text', aria-describedby='userHelp', placeholder='Enter username', value= value ?value.username : "" required)
+        small#userHelp.form-text.text-muted Alphanumeric string that may include _ and – having a length of 3 to 16 characters.
       .form-group
         label(for='email') Email address
-        input#email.form-control(class=value.email ? 'is-valid' : 'is-invalid', name='email', type='email', aria-describedby='emailHelp', placeholder='Enter email', value= value? value.email : "")
+        input#email.form-control(name='email', type='email', aria-describedby='emailHelp', placeholder='Enter email', value= value? value.email : "")
         small#emailHelp.form-text.text-muted We&apos;ll never share your email with anyone else.
-        div(class=value ? 'valid-feedback' : 'invalid-feedback') Looks good!
       .form-group
         label(for='birthday') Birthday
         input#birthday.form-control(name='birthday', type='date')
@@ -37,14 +35,13 @@ block content
         span Other
       .form-group
         label(for='password') Password
-        input#password.form-control(class=value.password ? 'is-valid' : 'is-invalid', name='password', type='password', placeholder='Password', value= value? value.password : "" required)
-        div(class=value ? 'valid-feedback' : 'invalid-feedback') Looks good!
+        input#password.form-control(name='password', type='password', placeholder='Password', value= value? value.password : "" required)
       .form-group
         label(for='username') Full name
-        input#username.form-control(name='fullname', type='text', aria-describedby='userHelp', placeholder='Enter fullname', required)
+        input#username.form-control(name='fullname', type='text', aria-describedby='userHelp', placeholder='Enter fullname',value= value? value.fullname : "" required)
       .form-group
         label(for='avatar') Avatar
         .custom-file
-          input#avatar.custom-form-control(type='text', name='avatar', placeholder='Url avatar')
-          //label.custom-file-label(for='avatar') Choose file
+          input#avatar.form-control(class='custom-file-input', type='file', name='avatar')
+          label.custom-file-label(for='avatar') Choose file
       input.btn.btn-primary(type='submit', value='Submit')
